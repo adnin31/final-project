@@ -14,23 +14,22 @@ let movieSchema = new Schema({
   trailer: String,
   rate: {
     type: String,
-    required: [true, '{PATH cannot empty}']
+    required: [true, '{PATH} cannot empty']
   },
   production: {
     type: String,
-    required: [true, '{PATH cannot empty}']
+    required: [true, '{PATH} cannot empty']
   },
   casts: [
     {
       type: String,
-      required: [true, '{PATH cannot empty}']
+      required: [true, '{PATH} cannot empty']
     }
   ],
   genre: {
     type: String,
     required: [true, '{PATH cannot empty}']
   },
-  time: Date,
   _theaterId: [{
     type: Schema.ObjectId,
     ref: 'Theater'

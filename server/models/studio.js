@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 let studioSchema = new Schema({
   name: {
     type: Number,
-    required: [true, '{PATH cannot empty}']
+    required: [true, '{PATH} cannot empty']
   },
   _theaterId: [{
     type: Schema.Types.ObjectId,
@@ -13,6 +13,16 @@ let studioSchema = new Schema({
   _movieId: [{
     type: Schema.Types.ObjectId,
     ref: 'Movie'
+  }],
+  seatsTotal: {
+    type: Number,
+    required: [true, '{PATH} cannot empty']
+  },
+  seatAvailable: [{
+    type: String
+  }],
+  seatBooked: [{
+    type: String
   }]
 })
 
