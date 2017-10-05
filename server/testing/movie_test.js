@@ -1,40 +1,105 @@
-const chai = require('chai');
-const chaiHttp = require('chai-http');
+const chai = require('chai')
+const chaiHttp = require('chai-http')
 chai.use(chaiHttp)
-const server = require('../app');
-const should = chai.should();
+const should = chai.should()
+const server = `http://localhost:3000`
 
 let Movie = require('../models/movies')
-
+let data = {}
 
 describe('Movie', () => {
     beforeEach((done) => {
-        
+        data = global.data
+        data.movie = []
+        Movie.remove({}, () => {
+            done()
+        })
     })
-    let deadpool = {
+    describe('/POST movie', () => {
+      let deadpool = {
         title: 'Deadpoll',
         overview: 'Deadpool tells the origin story of former Special Forces operative turned mercenary Wade Wilson, who after being subjected to a rogue experiment that leaves him with accelerated healing powers, adopts the alter ego Deadpool. Armed with his new abilities and a dark, twisted sense of humor, Deadpool hunts down the man who nearly destroyed his life.',
         poster: 'https://image.tmdb.org/t/p/w640/inVq3FRqcYIRl2la8iZikYYxFNR.jpg',
         trailer: 'https://youtu.be/9vN6DHB6bJc',
-        rate: 7.8,
+        rate: '18+',
         production: '20th century fox',
         casts: ['Ryan Reynolds', 'Morena Baccarin', 'Ed Skrein', 'T.J. Miller', 'Gina Carano'],
         genre: ['action', 'adventure', 'comedy'],
         time: ''
-    }
-    it('success input new movie', done => {
-        chai.request('http://localhost:3000')
-        .post('/api/movies/')
-        .send(deadpool)
-        .end((err, movie) => {
-            movie.should.have.status(200);
-            movie.body.should.be.an('object');
-            done();
+      }
+
+        it('success input new movie', done => {
+          chai.request(server)
+            .post('/api/movie/')
+            .send(deadpool)
+            .end((err, res) => {
+              res.should.have.status(200)
+              res.body.should.be.a('object')
+              res.body.should.have.property('title')
+              res.body.should.have.property('rate')
+              res.body.should.have.property('production')
+              res.body.should.have.property('casts')
+              res.body.should.have.property('genre')
+              done()
+            })
         })
     })
-    it('get all movies', done => {
-        chai.request('http://localhost:3000')
-        .get('/api/movies/')
+
+    describe('/GET /api/movie', () => {
+      it('get all movies', done => {
+          chai.request(server)
+            .get('/api/movies/')
+            .end((err, res) => {
+              res.should.have.status(200)
+              res.body.should.be.a('array')
+              res.should.not.exist(err)
+              done()
+            })
+      })
     })
 
+    describe('/GET /api/movie:id', () => {
+      it('should get movie by id', done => {
+          chai.request(server)
+            .get(`/api/movies/${data.movie[0]}`)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.should.be.a('object')
+                done()
+            })
+      })
+    })
+
+    describe('/PUT /api/movie/:id', () => {
+        it('should put movie by id', done => {
+            let newTitle = 'new title movie'
+            chai.request(server)
+            .put(`/api/movies/${data.movie[0]}`)
+            .send({title: newTitle})
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('title', newTitle)
+                done()
+            })
+        })
+    })
+
+    describe('/DELETE /api/movie/:id', () => {
+        it('should delete movie', done => {
+            chai.request(server)
+            .delete(`/api/movies/${data.movie[1]}`)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.result.should.have.property('ok').eql(1)
+                res.body.result.should.have.property('n').eql(1)
+            })
+        })
+    })
+
+  after(done => {
+    global.data = data
+    done()
+  })
 })
