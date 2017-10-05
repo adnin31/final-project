@@ -2,6 +2,8 @@ const model = require('../models/movieShowTime')
 
 let getAllMovieShowTime = (req, res) => {
   model.find()
+  .populate({path: '_movieId'})
+  .populate({path: '_studioId'})
   .then(response => {
     res.send(response)
   })
@@ -12,6 +14,8 @@ let getAllMovieShowTime = (req, res) => {
 
 let getMovieShowTimeById = (req, res) => {
   model.findById(req.params.id)
+  .populate({path: '_movieId'})
+  .populate({path: '_studioId'})
   .then(response => {
     res.send(response)
   })

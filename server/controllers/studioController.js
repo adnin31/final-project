@@ -2,6 +2,8 @@ const model = require('../models/studio')
 
 let getAllStudio = (req, res) => {
   model.find()
+  .populate({path: '_theaterId'})
+  .populate({path: '_movieId'})
   .then(response => {
     res.send(response)
   })
@@ -12,6 +14,8 @@ let getAllStudio = (req, res) => {
 
 let getStudioById = (req, res) => {
   model.findById(req.params.id)
+  .populate({path: '_theaterId'})
+  .populate({path: '_movieId'})
   .then(response => {
     res.send(response)
   })

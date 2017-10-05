@@ -45,16 +45,14 @@ let signIn = (req, res) => {
     username: req.body.username
   })
   .then(response => {
-    console.log(response.password)
+    console.log('response ================', process.env.SECRET_KEY)
     if (response != null) {
       if (bcrypt.compareSync(req.body.password, response.password)) {
-        var token = jwt.sign({
-          _id: response._id,
-          username: response.username
-        }, process.env.SECRET_KEY)
+        var token = jwt.sign({_id: response._id, username: response.username}, process.env.SECRET_KEY)
+        console.log('token =============== ', token)
         res.send({
           token: token,
-          id: response._id,
+          _id: response._id,
           username: response.username
         })
       } else {

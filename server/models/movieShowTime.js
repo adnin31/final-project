@@ -11,7 +11,7 @@ let movieShowTimeSchema = new Schema({
     ref: 'Studio'
   },
   startTime: {
-    type: Date,
+    type: String,
     required: [true, '{PATH} cannot empty']
   }
 })

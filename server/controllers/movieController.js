@@ -2,6 +2,7 @@ const model = require('../models/movie')
 
 let getAllMovie = (req, res) => {
   model.find()
+  .populate({path: '_theaterId'})
   .then(response => {
     res.send(response)
   })
@@ -12,6 +13,7 @@ let getAllMovie = (req, res) => {
 
 let getMovieById = (req, res) => {
   model.findById(req.params.id)
+  .populate({path: '_theaterId'})
   .then(response => {
     res.send(response)
   })
@@ -30,6 +32,7 @@ let addMovie = (req, res) => {
     production: req.body.production,
     casts: req.body.casts,
     genre: req.body.genre,
+    yearProduction: req.body.yearProduction,
     _theaterId: req.body.theaterId
   })
   .then(response => {
@@ -52,6 +55,7 @@ let editMovie = (req, res) => {
     production: req.body.production,
     casts: req.body.casts,
     genre: req.body.genre,
+    yearProduction: req.body.yearProduction,
     _theaterId: req.body.theaterId
   })
   .then(response => {
