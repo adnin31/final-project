@@ -1,18 +1,11 @@
 import React, {Component} from 'react'
 
-class Cinema extends Component{
-  constructor() {
-    super ()
-  }
-
+class Cinema extends Component {
   render () {
     return (
-      <div className= "container">
-        
-      </div>
-
+      <div className='container' />
     )
   }
-
 }
+
 export default Cinema

@@ -9,9 +9,6 @@ import Navbar from './components/Navbar'
 import DetailMovie from './components/DetailMovie'
 import Seat from './components/Seat'
 
-
-
-
 class App extends Component {
   render() {
     return (
@@ -19,14 +16,14 @@ class App extends Component {
       <Router>
         <div>
           <Navbar></Navbar>
-          <Route exact path="/" component= {Home}/>
-          <Route exact path="/detail/1" component= {DetailMovie}/>
-          <Route  exact path="/booking/:movie" component= {Seat}/>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/detail/1' component={DetailMovie} />
+          <Route exact path='/booking/:movie' component={Seat} />
         </div>
       </Router>
     </Provider>
-    );
+    )
   }
 }
 
-export default App;
+export default App
