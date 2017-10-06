@@ -1,0 +1,91 @@
+{
+    "nav_icon": "nav_icon.png",
+    "firstPhotoId":"00",
+    "firstPhotoRotation":270,
+    "photos":{
+        "00":{
+            "rotationOffset": 0,
+            "uri":"studio1.jpg",
+            "tooltips":[ 
+                {
+                "text":"Seat 1",
+                "rotationY": -9.929,
+                "linkedPhotoId":"01"
+                },
+                {
+                "text":"Seat 2",
+                "rotationY": -106.844,
+                "linkedPhotoId":"02"
+                },
+                {
+                "text":"Seat 3",
+                "rotationY": 170.42,
+                "linkedPhotoId":"03"
+                }
+            ]
+        },
+        "01":{
+            "rotationOffset": 0,
+            "uri":"studio1-seat1.jpg",
+            "tooltips":[
+                {
+                    "text":"Screen",
+                    "rotationY": -9.929,
+                    "linkedPhotoId":"00"
+                },
+                {
+                    "text":"Seat 2",
+                    "rotationY": -106.844,
+                    "linkedPhotoId":"02"
+                },
+                {
+                    "text":"Seat 3",
+                    "rotationY": 170.42,
+                    "linkedPhotoId":"03"
+                }
+            ]
+        },
+        "02":{
+            "rotationOffset": 0,
+            "uri":"studio1-seat2.jpg",
+            "tooltips":[
+                {
+                    "text":"Seat1",
+                    "rotationY": -9.929,
+                    "linkedPhotoId":"01"
+                },
+                {
+                    "text":"Screen",
+                    "rotationY": -106.844,
+                    "linkedPhotoId":"00"
+                },
+                {
+                    "text":"Seat 3",
+                    "rotationY": 170.42,
+                    "linkedPhotoId":"03"
+                }
+            ]
+        },
+        "03":{
+            "rotationOffset": 0,
+            "uri":"chester.jpg",
+            "tooltips":[
+                {
+                "text":"Seat 1",
+                "rotationY": -9.929,
+                "linkedPhotoId":"01"
+                },
+                {
+                "text":"Seat 2",
+                "rotationY": -106.844,
+                "linkedPhotoId":"02"
+                },
+                {
+                "text":"Screen",
+                "rotationY": 170.42,
+                "linkedPhotoId":"00"
+                }
+            ]
+        }
+    }
+ }
