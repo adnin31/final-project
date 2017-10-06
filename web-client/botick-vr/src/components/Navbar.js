@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 
 class Navbar extends Component {
@@ -17,7 +18,7 @@ class Navbar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="#">Botick</a>
+              <Link className="navbar-brand" to='/'>Botick</Link>
             </div>
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>

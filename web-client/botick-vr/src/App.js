@@ -7,6 +7,8 @@ import NowPlaying from './components/NowPlaying'
 import Cinema from './components/Cinema'
 import Navbar from './components/Navbar'
 import DetailMovie from './components/DetailMovie'
+import Seat from './components/Seat'
+
 
 
 
@@ -18,7 +20,8 @@ class App extends Component {
         <div>
           <Navbar></Navbar>
           <Route exact path="/" component= {Home}/>
-        <Route exact path="/detail/1" component= {DetailMovie}/>
+          <Route exact path="/detail/1" component= {DetailMovie}/>
+          <Route  exact path="/booking/:movie" component= {Seat}/>
         </div>
       </Router>
     </Provider>

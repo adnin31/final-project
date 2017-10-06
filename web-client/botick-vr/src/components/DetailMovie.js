@@ -9,7 +9,7 @@ class DetailMovie extends Component{
       title: 'IT',
       overview: 'In a small town in Maine, seven children known as The Losers Club come face to face with life problems, bullies and a monster that takes the shape of a clown called Pennywise.',
       poster: "https://image.tmdb.org/t/p/w300_and_h450_bestv2/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg",
-      trailer: "https://www.youtube.com/embed/XGSy3_Czz8k",
+      trailer: "https://www.youtube.com/embed/xKJmEC5ieOk",
       rate: 'Remaja 15+',
       production: 'New Line Cinema',
       casts: ['Jaeden Lieberher', 'Bill Skarsgård', 'Jeremy Ray Taylor', 'Sophia Lillis', 'Finn Wolfhard'],
@@ -21,63 +21,70 @@ class DetailMovie extends Component{
   render () {
     return (
       <div className= "container">
-        <Listpage text ={this.state.title}/>
+
         <div className= "row" style={{'margin' : '20px'}}>
           <div className= 'col-md-4'>
             <img src={this.state.poster}/>
           </div>
           <div className= 'col-md-6'>
-            <p>
-              <h3 >Synopsis</h3>
-                {this.state.overview}
-              <br/>
-              <h3>Cast</h3>
-                <ul>
-                  {
-                    this.state.casts.map( cast =>{
-                     return (
-                       <li> {cast} </li>
-                     )
-                    }
-                  )}
-                </ul>
-              <h3>Genre</h3>
-              {this.state.genre}
-              <h3>Rate</h3>
-              {this.state.rate}
-              <h3>Prduction</h3>
-              {this.state.production}
-            </p>
+            <iframe width="720" height="450" src={this.state.trailer}/>
+
           </div>
         </div>
-        <Listpage/>
+        <Listpage text ={this.state.title}/>
+      <div className='row detail'>
+          <div className= 'col-md-4'>
+            <ul>
+              <li><span>Casts</span>
+              : {
+                  this.state.casts.map((actor,idx)=>{
+                    return(
+                      <span key={idx}>{actor},</span>
+                    )
+                  })
+                }
+              </li>
+              <li>
+                <span>Genre</span>
+                :{this.state.genre}
+              </li>
+              <li>
+                <span>Rate</span>
+                :{this.state.rate}
+              </li>
+              <li>
+                <span>Productions</span>
+                :{this.state.production}
+              </li>
+            </ul>
+          </div>
+          <div className='col-md-6'>
+            <p>{this.state.overview}</p>
+          </div>
+        </div>
+
+        <hr className='col-md-12' style={{'margin' : '0px'}}/>
         <div className='row'>
-          <h2>Playing On</h2>
-          <table class="table" style= {{'margin-left' : '50px'}}>
+          <div className='col-md-12'>
+            <h2>Schedule</h2>
+          <hr className='col-md-12' style={{'margin' : '0px'}}/>
+        <h4>Pick your time</h4>
+          <table className="table text-center">
               <tr>
                 {
-                  this.state.time.map(schedule =>{
+                  this.state.time.map((schedule, idx) =>{
                     return(
-                      <Link to= {
+                      <Link key={idx} to= {
                         {
-                          pathname:`/seat/${schedule}`,
+                          pathname:`/booking/${this.state.title}`,
                           state: {time: schedule}
                         }
-                      } style={{'margin-right' : '30px'}}> <td style={{ 'font-size' : '150%'}}>  {schedule} </td> </Link>
+                      }> <td className= 'btn btn-default' style={{ 'font-size' : '150%' , 'width' : '250px', 'margin' : '15px'}}>  {schedule} </td> </Link>
                     )
                   })
                 }
               </tr>
-
             </table>
-          <div className= 'col-md-6'>
-            <h2>Trailer</h2>
-          <iframe width="555" height="350" src={this.state.trailer}/>
-
-          </div>
-          <div className= 'col-md-6'>
-
-
           </div>
         </div>
       </div>
