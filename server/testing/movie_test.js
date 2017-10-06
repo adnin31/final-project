@@ -4,17 +4,10 @@ chai.use(chaiHttp)
 const should = chai.should()
 const server = `http://localhost:3000`
 
-let Movie = require('../models/movies')
 let data = {}
+let Movie = require('../models/movie')
 
 describe('Movie', () => {
-    beforeEach((done) => {
-        data = global.data
-        data.movie = []
-        Movie.remove({}, () => {
-            done()
-        })
-    })
     describe('/POST movie', () => {
       let deadpool = {
         title: 'Deadpoll',
@@ -25,7 +18,7 @@ describe('Movie', () => {
         production: '20th century fox',
         casts: ['Ryan Reynolds', 'Morena Baccarin', 'Ed Skrein', 'T.J. Miller', 'Gina Carano'],
         genre: ['action', 'adventure', 'comedy'],
-        time: ''
+        yearProduction: '2016'
       }
 
         it('success input new movie', done => {
@@ -48,11 +41,10 @@ describe('Movie', () => {
     describe('/GET /api/movie', () => {
       it('get all movies', done => {
           chai.request(server)
-            .get('/api/movies/')
+            .get('/api/movie/')
             .end((err, res) => {
               res.should.have.status(200)
               res.body.should.be.a('array')
-              res.should.not.exist(err)
               done()
             })
       })
@@ -61,7 +53,7 @@ describe('Movie', () => {
     describe('/GET /api/movie:id', () => {
       it('should get movie by id', done => {
           chai.request(server)
-            .get(`/api/movies/${data.movie[0]}`)
+            .get(`/api/movie/59d5f98c442ccc319306ee16`)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.should.be.a('object')
@@ -74,7 +66,7 @@ describe('Movie', () => {
         it('should put movie by id', done => {
             let newTitle = 'new title movie'
             chai.request(server)
-            .put(`/api/movies/${data.movie[0]}`)
+            .put(`/api/movie/59d5f98c442ccc319306ee16`)
             .send({title: newTitle})
             .end((err, res) => {
                 res.should.have.status(200)
@@ -88,7 +80,7 @@ describe('Movie', () => {
     describe('/DELETE /api/movie/:id', () => {
         it('should delete movie', done => {
             chai.request(server)
-            .delete(`/api/movies/${data.movie[1]}`)
+            .delete(`/api/movie/${data.movie[1]}`)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.should.be.a('object')
@@ -97,9 +89,4 @@ describe('Movie', () => {
             })
         })
     })
-
-  after(done => {
-    global.data = data
-    done()
-  })
 })

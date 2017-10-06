@@ -14,6 +14,11 @@ let bookingSchema = new Schema({
   _movieShowTimeId: [{
     type: Schema.Types.ObjectId,
     ref: 'MovieShowTime'
+  }],
+  bookStatus: false,
+  seatNumber: [{
+    type: String,
+    required: [true, '{PATH} cannot empty']
   }]
 })
 

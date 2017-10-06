@@ -31,4 +31,4 @@ app.use('/api/studio', studio)
 app.use('/api/theater', theater)
 app.use('/api/user', user)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
