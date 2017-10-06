@@ -1,11 +1,10 @@
 import axios from 'axios'
-const api = 'http://botick-vr.appspot.com/api'
+const api = 'http://localhost:3000/api'
 
-export const movieList = (movie, studio) => ({
+export const movieList = movie => ({
   type: 'GET_MOVIE_ALL',
   payload: {
-    movielist: movie,
-    studiolist: studio
+    movielist: movie
   }
 })
 
@@ -19,14 +18,7 @@ export const theaterList = theater => ({
 export const getAllMovie = () => dispatch => {
   axios.get(api + `/movie/`)
   .then(({data}) => {
-    axios.get(api + `/studio/`)
-    .then(({data2}) => {
-      console.log('action axios get movie', data)
-      dispatch(movieList(data, data2))
-    })
-    .catch(err => {
-      dispatch(err)
-    })
+    dispatch(movieList(data))
   })
   .catch(err => {
     dispatch(err)

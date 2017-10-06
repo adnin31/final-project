@@ -24,15 +24,19 @@ class NowPlaying extends Component{
         <div className="row">
           { this.props.movieList.map( (movie, idx) => {
             return (
-              <Link to ='/detail/1' key={idx}>
+              <Link to ={{
+                pathname: '/detail/' + movie._id,
+                state: {
+                  movie: movie
+                }
+              }} key={idx}>
               <div className="col-sm-6 col-md-4 " style = {studio}>
                 <div className="thumbnail" >
                   <div className="caption text-center">
                     <h3>{movie.title}</h3>
                   </div>
-                  <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg" />
+                  <img src={movie.poster} />
                   <div className="caption text-center">
-                    <h3 >Thumbnail label</h3>
                   </div>
                 </div>
               </div>
