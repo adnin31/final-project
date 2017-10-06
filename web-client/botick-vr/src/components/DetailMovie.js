@@ -68,7 +68,6 @@ class DetailMovie extends Component{
           <div className='col-md-12'>
             <h2>Schedule</h2>
           <hr className='col-md-12' style={{'margin' : '0px'}}/>
-        <h4>Pick your time</h4>
           <table className="table text-center">
               <tr>
                 {

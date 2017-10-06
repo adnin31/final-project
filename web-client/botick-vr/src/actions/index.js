@@ -16,6 +16,13 @@ export const theaterList = theater => ({
   }
 })
 
+export const getToken = token => ({
+  type: 'SAVE_USER_TOKEN',
+  payload: {
+    token: token
+  }
+})
+
 export const getAllMovie = () => dispatch => {
   axios.get(api + `/movie/`)
   .then(({data}) => {
@@ -42,4 +49,19 @@ export const getAllTheater = () => dispatch => {
   .catch(err => {
     dispatch(err)
   })
+}
+
+export const postLogin = dataUser => dispatch =>{
+  axios.post( `${api}/user/signin`, {
+    ...dataUser
+  })
+  .then( ({data}) => {
+    localStorage.setItem('token',data.token)
+    dispatch(getToken(data.token))
+  })
+}
+
+export const logOut = dataUser => dispatch =>{
+  localStorage.removeItem('token')
+  dispatch(getToken(dataUser))
 }
