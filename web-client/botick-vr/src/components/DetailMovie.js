@@ -13,12 +13,13 @@ class DetailMovie extends Component {
   }
 
   getStudio (studioId, startTime) {
+
     return this.state.studio.map(std => {
       if (studioId === std._id) {
         return (
           <div>
             <h3>Studio {std.name}</h3>
-            <button><h2>{startTime}</h2></button>  
+            <button><h2>{startTime}</h2></button>
           </div>
         )
       }
@@ -26,11 +27,27 @@ class DetailMovie extends Component {
   }
 
   renderMovieShowTime () {
-    return this.state.movie._movieShowTimeId.map(showtime => {
+
+    return this.state.studio.map(std => {
+      var times = this.state.movie._movieShowTimeId.filter( showtime => {
+        return std._id === showtime._studioId
+      })
       return (
         <div>
-          <td>{this.getStudio(showtime._studioId, showtime.startTime)}
-          </td>
+          <h3>Studio {std.name}</h3>
+          {
+            times.map(time => {
+              console.log(time);
+              return (
+                <Link to= {{
+                    pathname: `/booking/${time._id}`,
+                    state: {
+                      showtimeData : time
+                    }
+                  }} className= 'btn btn-primary' style = {{marginRight : '20px'}}><h2>{time.startTime}</h2></Link>
+              )
+            })
+          }
         </div>
       )
     })
@@ -89,8 +106,7 @@ class DetailMovie extends Component {
             <h2>Schedule</h2>
 
             <hr className='col-md-12' style={{'margin': '10px 0px 10px 0px'}}/>
-            <h4>Pick your time</h4>
-            <table className='table text-center'>
+            <table className='table'>
               <tbody>
                 {this.renderMovieShowTime()}
               </tbody>

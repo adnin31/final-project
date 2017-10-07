@@ -130,10 +130,6 @@ class Navbar extends Component {
  const mapDispatchToProps = (dispatch) => {
    return {
       postLogin: (data) => {
-        this.setState({
-          username: '',
-          password: ''
-        })
         dispatch(postLogin(data))
       },
       logout: (data) => {

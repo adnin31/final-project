@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 // import seat from '../screen.png'
 import firebase from 'firebase'
+import './Seat.css'
 
 var config = {
     apiKey: "AIzaSyCAndawPNofKLlN9W3EjWGYtqYnH1CneSc",
@@ -18,107 +19,79 @@ var user = database.ref('/user')
 
 
 class Seat extends Component {
-  constructor() {
-    super ()
+  constructor(props) {
+    super (props)
     this.state = {
       status : true,
-      counterSeat1: 1,
-      counterSeat2: 1,
-      counterSeat3: 1,
-      user: 0
+      counter: [],
+      totalSeat: props.location.state.showtimeData.seatsTotal
     }
   }
   componentWillMount() {
-    // console.log('ini will mount');
-    // this.state.user ++
-    // console.log('ini sehabis ditambah',this.state.user);
-    // user.set(this.state.user)
-    // user.on('value', snapshot => {
-    //   console.log(snapshot.val());
-    //   this.setState({
-    //     user: snapshot.val()
-    //   })
-    // })
-
-
-
+    var newCounterValue =[]
+    for (var i = 1; i <= this.state.totalSeat; i++) {
+      newCounterValue.push(1)
+    }
+    this.setState({
+      counter : newCounterValue
+    })
   }
+
   render() {
-    console.log(this.state.user)
     return (
       <div className = 'container'>
         <h1>Pick your seat</h1>
         <div>
-          <button className= 'btn btn-default' style={button}>See Your Cinema</button>
+          <a className= 'btn btn-default' style={button} href= 'https://vr.ahmadaidil.cf/' target="_blank">See Your Cinema</a>
         </div>
+
         <div className= 'container' style= {boxStyle} >
-          <div className='text-center row'>
+          <div className='text-center'>
             <img src= {require('../assets/screen.png') }/>
-          </div>
-
-          <div className='text-center row' style={{'marginTop' : '80px' }}>
-            <div >
-              <button className= {this.state.counterSeat1 % 2  ? 'btn btn-primary col-md-offset-4 col-md-4': 'btn btn-warning col-md-offset-4 col-md-4' }  style={seatStyle}
-              onClick = {() => this.buttonSeat('seat1')} >  Seat 1 </button>
-            </div>
-            <div className='seat'>
-              <button className={this.state.counterSeat2 % 2  ? 'btn btn-primary col-md-offset-4 col-md-4': 'btn btn-warning col-md-offset-4 col-md-4' } style={seatStyle}
-                onClick = {() => this.buttonSeat('seat2')}> Seat 2 </button>
-            </div>
-            <div className='seat'>
-              <button className={this.state.counterSeat3 % 2  ? 'btn btn-primary col-md-offset-4 col-md-4': 'btn btn-warning col-md-offset-4 col-md-4' } style={seatStyle}
-                onClick = {() => this.buttonSeat('seat3')}> Seat 3 </button>
+            <div className= '' style = {boxStyleSeat}>
+              {
+                this.state.counter.map((seat,idx) => {
+                  return (
+                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className= 'btn btn-primary' key= {idx}> {idx+1}</button>
+                  )
+                })
+              }
             </div>
           </div>
-
         </div>
+
+
       </div>
     )
   }
 
   buttonSeat (seat) {
-
-    switch (seat) {
-      case 'seat1':
-        let plus = this.state.counterSeat1 + 1
-        fireSeat1.set({
-          counter: plus
-        })
-        fireSeat1.on('value', snapshot => {
-          this.setState ({
-            counterSeat1:  snapshot.val().counter
-          })
-        })
-
-        break;
-      case 'seat2':
-        let plus2 = this.state.counterSeat2 + 1
-        this.setState ({
-          counterSeat2:  plus2
-        })
-        break;
-      case 'seat3':
-        let plus3 = this.state.counterSeat3 + 1
-        this.setState ({
-          counterSeat3:  plus3
-        })
-        break;
-      default:
-
-    }
-
+    console.log(seat);
+    console.log('ini di state',this.state.counter[seat]);
   }
 
 }
 
-const seatStyle = {
-  marginTop : '20px',
-  marginBottom: '20px',
-}
 const boxStyle ={
   border: 'solid'
 }
+const boxStyleSeat ={
 
+  width: '400px',
+  height: '500px',
+  marginLeft: '35%',
+  display : 'flex',
+  flexWrap: 'wrap'
+}
+const seatStyle = {
+  width: '50px',
+  height: '50px',
+  marginRight: '10px',
+  marginLeft: '10px',
+  marginTop: '20px',
+  // marginBottom: '20px'
+
+}
 const button = {
   marginBottom: '20px'
 }
