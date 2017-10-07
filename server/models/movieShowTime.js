@@ -13,7 +13,17 @@ let movieShowTimeSchema = new Schema({
   startTime: {
     type: String,
     required: [true, '{PATH} cannot empty']
-  }
+  },
+  seatsTotal: {
+    type: Number,
+    required: [true, '{PATH} cannot empty']
+  },
+  seatAvailable: [{
+    type: String
+  }],
+  seatBooked: [{
+    type: String
+  }]
 })
 
 let MovieShowTime = mongoose.model('MovieShowTime', movieShowTimeSchema)

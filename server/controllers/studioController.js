@@ -2,7 +2,6 @@ const model = require('../models/studio')
 
 let getAllStudio = (req, res) => {
   model.find()
-  .populate({path: '_theaterId'})
   .populate({path: '_movieId'})
   .then(response => {
     res.send(response)
@@ -14,7 +13,6 @@ let getAllStudio = (req, res) => {
 
 let getStudioById = (req, res) => {
   model.findById(req.params.id)
-  .populate({path: '_theaterId'})
   .populate({path: '_movieId'})
   .then(response => {
     res.send(response)
@@ -27,11 +25,7 @@ let getStudioById = (req, res) => {
 let addStudio = (req, res) => {
   model.create({
     name: req.body.name,
-    _theaterId: req.body.theaterId,
-    _movieId: req.body.movieId,
-    seatsTotal: req.body.seatsTotal,
-    seatAvailable: req.body.seatAvailable,
-    seatBooked: req.body.seatBooked
+    _movieId: req.body.movieId
   })
   .then(response => {
     res.send(response)
@@ -46,11 +40,7 @@ let editStudio = (req, res) => {
     _id: req.params.id
   }, {
     name: req.body.name,
-    _theaterId: req.body.theaterId,
-    _movieId: req.body.movieId,
-    seatsTotal: req.body.seatsTotal,
-    seatAvailable: req.body.seatAvailable,
-    seatBooked: req.body.seatBooked
+    _movieId: req.body.movieId
   })
   .then(response => {
     res.send(response)

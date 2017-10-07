@@ -31,9 +31,13 @@ let movieSchema = new Schema({
     type: String,
     required: [true, '{PATH} cannot empty']
   },
-  _theaterId: [{
+  _studioId: [{
     type: Schema.Types.ObjectId,
-    ref: 'Theater'
+    ref: 'Studio'
+  }],
+  _movieShowTimeId: [{
+    type: Schema.Types.ObjectId,
+    ref: 'MovieShowTime'
   }]
 })
 
