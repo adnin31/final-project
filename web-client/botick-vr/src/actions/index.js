@@ -1,5 +1,5 @@
 import axios from 'axios'
-const api = 'http://localhost:3000/api'
+const api = 'https://botick-vr.appspot.com/api'
 
 export const movieList = movie => ({
   type: 'GET_MOVIE_ALL',
