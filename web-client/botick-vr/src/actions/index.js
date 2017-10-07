@@ -1,18 +1,17 @@
 import axios from 'axios'
-const api = 'http://botick-vr.appspot.com/api'
+const api = 'https://botick-vr.appspot.com/api'
 
-export const movieList = (movie, studio) => ({
+export const movieList = movie => ({
   type: 'GET_MOVIE_ALL',
   payload: {
-    movielist: movie,
-    studiolist: studio
+    movielist: movie
   }
 })
 
-export const theaterList = theater => ({
-  type: 'GET_THEATER_ALL',
+export const studioList = studio => ({
+  type: 'GET_STUDIO_ALL',
   payload: {
-    theaterlist: theater
+    studiolist: studio
   }
 })
 
@@ -26,25 +25,18 @@ export const getToken = token => ({
 export const getAllMovie = () => dispatch => {
   axios.get(api + `/movie/`)
   .then(({data}) => {
-    axios.get(api + `/studio/`)
-    .then(({data2}) => {
-      console.log('action axios get movie', data)
-      dispatch(movieList(data, data2))
-    })
-    .catch(err => {
-      dispatch(err)
-    })
+    dispatch(movieList(data))
   })
   .catch(err => {
-    dispatch(err)
+    dispatch({error: err})
   })
 }
 
-export const getAllTheater = () => dispatch => {
-  axios.get(api + `/theater/`)
+export const getAllStudio = () => dispatch => {
+  axios.get(api + `/studio/`)
   .then(({data}) => {
-    console.log('action axios get theater', data)
-    dispatch(theaterList(data))
+    console.log('action axios get studio', data)
+    dispatch(studioList(data))
   })
   .catch(err => {
     dispatch(err)

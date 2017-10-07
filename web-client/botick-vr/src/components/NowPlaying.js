@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { getAllMovie, getAllTheater } from '../actions/index'
+import { getAllMovie, getAllStudio } from '../actions/index'
 
 class NowPlaying extends Component{
   constructor(props) {
@@ -14,7 +14,7 @@ class NowPlaying extends Component{
 
   componentDidMount () {
     this.props.getMovie()
-    this.props.getTheater()
+    this.props.getStudio()
   }
 
   render () {
@@ -24,15 +24,20 @@ class NowPlaying extends Component{
         <div className="row">
           { this.props.movieList.map( (movie, idx) => {
             return (
-              <Link to ='/detail/1' key={idx}>
+              <Link to ={{
+                pathname: '/detail/' + movie._id,
+                state: {
+                  movie: movie,
+                  studio: this.props.studioList
+                }
+              }} key={idx}>
               <div className="col-sm-6 col-md-4 " style = {studio}>
                 <div className="thumbnail" >
                   <div className="caption text-center">
                     <h3>{movie.title}</h3>
                   </div>
-                  <img src="https://image.tmdb.org/t/p/w300_and_h450_bestv2/9E2y5Q7WlCVNEhP5GiVTjhEhx1o.jpg" />
+                  <img style={{height: '550px', width: 'auto'}}src={movie.poster} />
                   <div className="caption text-center">
-                    <h3 >Thumbnail label</h3>
                   </div>
                 </div>
               </div>
@@ -57,16 +62,16 @@ class NowPlaying extends Component{
 
 const mapStateToProps = (state) => ({
   movieList: state.movie.movielist,
-  theaterList: state.theater
+  studioList: state.studio.studiolist
 })
 
 const mapDispatchToProps = dispatch => ({
   getMovie: () => dispatch(getAllMovie()),
-  getTheater: () => dispatch(getAllTheater())
+  getStudio: () => dispatch(getAllStudio())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NowPlaying)
 
 const studio = {
-  'margin-top': '20px'
+  'marginTop': '20px'
 }
