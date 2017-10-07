@@ -20,7 +20,7 @@ class ListMovie extends Component {
 }
 
 const studio = {
-  'margin-top' : '20px'
+  'marginTop' : '20px'
 }
 
 export default ListMovie

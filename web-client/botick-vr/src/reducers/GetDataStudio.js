@@ -1,13 +1,13 @@
 const defaultState = {
-    theaterlist: []
+    studiolist: []
 }
   
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_THEATER_ALL':
+    case 'GET_STUDIO_ALL':
     return {
         ...state,
-        theaterlist: action.payload
+        studiolist: action.payload.studiolist
     }
     default:
     return state

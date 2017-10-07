@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
 import movieReducer from './GetDataMovie'
-import theaterReducer from './GetDataTheater'
+import studioReducer from './GetDataStudio'
 
 export default combineReducers({
   movie: movieReducer,
-  theater: theaterReducer
+  studio: studioReducer
 })

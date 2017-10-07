@@ -8,10 +8,10 @@ export const movieList = movie => ({
   }
 })
 
-export const theaterList = theater => ({
-  type: 'GET_THEATER_ALL',
+export const studioList = studio => ({
+  type: 'GET_STUDIO_ALL',
   payload: {
-    theaterlist: theater
+    studiolist: studio
   }
 })
 
@@ -21,15 +21,15 @@ export const getAllMovie = () => dispatch => {
     dispatch(movieList(data))
   })
   .catch(err => {
-    dispatch(err)
+    dispatch({error: err})
   })
 }
 
-export const getAllTheater = () => dispatch => {
-  axios.get(api + `/theater/`)
+export const getAllStudio = () => dispatch => {
+  axios.get(api + `/studio/`)
   .then(({data}) => {
-    console.log('action axios get theater', data)
-    dispatch(theaterList(data))
+    console.log('action axios get studio', data)
+    dispatch(studioList(data))
   })
   .catch(err => {
     dispatch(err)
