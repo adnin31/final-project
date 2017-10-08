@@ -36,13 +36,13 @@ class DetailMovie extends Component {
         <div>
           <h3>Studio {std.name}</h3>
           {
-            times.map(time => {
+            times.map((time,idx) => {
               console.log(time);
               return (
-                <Link to= {{
+                <Link  key={idx} to= {{
                     pathname: `/booking/${time._id}`,
                     state: {
-                      showtimeData : time
+                      showtimeData : [time, std]
                     }
                   }} className= 'btn btn-primary' style = {{marginRight : '20px'}}><h2>{time.startTime}</h2></Link>
               )

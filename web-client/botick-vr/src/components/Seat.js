@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 // import seat from '../screen.png'
 import firebase from 'firebase'
 import './Seat.css'
+import Listpage from './Listpage'
 
 var config = {
     apiKey: "AIzaSyCAndawPNofKLlN9W3EjWGYtqYnH1CneSc",
@@ -24,20 +25,40 @@ class Seat extends Component {
     this.state = {
       status : true,
       counter: [],
-      totalSeat: props.location.state.showtimeData.seatsTotal
+      totalSeat: props.location.state.showtimeData[0].seatsTotal,
+      booked: props.location.state.showtimeData[0].seatBooked,
+      onBook: [],
+      time: props.location.state.showtimeData[0].startTime,
+      date: Date().split(' ').slice(0,4).join(' '),
+      price: 35000
     }
   }
   componentWillMount() {
     var newCounterValue =[]
     for (var i = 1; i <= this.state.totalSeat; i++) {
-      newCounterValue.push(1)
+      newCounterValue.push({
+        status: true,
+        user: '',
+        price: '',
+        counter: 0
+      })
     }
+    newCounterValue.map((value,idx) => {
+      var newBooked = this.state.booked.filter((booked)=>{
+        return `${idx}` === booked
+      })
+      console.log('ini newBooked' , newBooked);
+      if(`${idx}` === newBooked[0] ){
+        value.status = false
+      }
+    })
     this.setState({
       counter : newCounterValue
     })
   }
 
   render() {
+    console.log('ini seat coy', this.props.location.state.showtimeData);
     return (
       <div className = 'container'>
         <h1>Pick your seat</h1>
@@ -52,22 +73,56 @@ class Seat extends Component {
               {
                 this.state.counter.map((seat,idx) => {
                   return (
-                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className= 'btn btn-primary' key= {idx}> {idx+1}</button>
+                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat)}  key= {idx}> {idx+1}</button>
                   )
                 })
               }
             </div>
           </div>
         </div>
-
-
+        <Listpage text= 'Summary'/>
+        <ul>
+          <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
+          <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
+          <p><span>Time </span>: {this.state.time} </p>
+          <p><span>Date </span>: {this.state.date} </p>
+        </ul>
+        <hr className= 'col-md-12'/>
+        <h3>
+          <span className= 'col-md-8'>Total</span>
+          <span className= 'col-md-4'> : Rp {this.state.onBook.length * this.state.price},00</span>
+        </h3>
+        <hr className= 'col-md-12'/>
+        <button className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2'>Book Now</button>
       </div>
     )
   }
 
   buttonSeat (seat) {
-    console.log(seat);
-    console.log('ini di state',this.state.counter[seat]);
+    let newCounter = this.state.counter.map((data,idx) => {
+      if(seat-1 === idx) data.counter ++
+      return data
+    })
+    var newOnBook =  this.state.onBook
+    if (this.state.counter[seat-1].counter %2 !== 0) {
+      newOnBook.push(seat)
+    }else {
+      newOnBook.splice(newOnBook.indexOf(seat),1)
+    }
+    this.forceUpdate()
+
+  }
+
+  checkSeat (seat) {
+    if(seat.status){
+      if (seat.counter % 2 === 0) {
+        return 'btn btn-primary'
+      } else {
+        return 'btn btn-warning'
+      }
+    } else {
+      return 'btn btn-danger disabled'
+    }
   }
 
 }
@@ -78,7 +133,8 @@ const boxStyle ={
 const boxStyleSeat ={
 
   width: '400px',
-  height: '500px',
+  height: '400px',
+  marginTop: '30px',
   marginLeft: '35%',
   display : 'flex',
   flexWrap: 'wrap'
@@ -88,7 +144,7 @@ const seatStyle = {
   height: '50px',
   marginRight: '10px',
   marginLeft: '10px',
-  marginTop: '20px',
+  // marginTop: '10px',
   // marginBottom: '20px'
 
 }
