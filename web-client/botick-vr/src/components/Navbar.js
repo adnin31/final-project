@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { postLogin, logOut, getToken } from '../actions/index.js'
+import { postLogin, logOut, getToken, register } from '../actions/index.js'
 
 
 class Navbar extends Component {
@@ -24,6 +24,7 @@ class Navbar extends Component {
   logout () {
     localStorage.removeItem('token')
   }
+
   render () {
     console.log('ini navbar token',);
     return(
@@ -42,7 +43,7 @@ class Navbar extends Component {
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>
               <ul className="nav navbar-nav navbar-right">
-                { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout('')}>Logout</a></li>  :
+                { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout(null)}>Logout</a></li>  :
                   <li style={{display: 'flex', alignItems: 'baseline'}}>
                     <a className= 'btn' data-toggle="modal" data-target="#myModal" >Login</a> or <a className= 'btn' data-toggle="modal" data-target="#myRegister" >Register</a>
                   </li>
@@ -72,12 +73,12 @@ class Navbar extends Component {
                       <label for="psw"><span className="glyphicon glyphicon-eye-open"></span> Password</label>
                     <input name= 'password' type="password" className="form-control" placeholder="Enter password" value= {this.state.password} onChange= {(event) => this.handleChange(event)}/>
                     </div>
-                    <button  type="button" className="btn btn-success btn-block" data-dismiss="modal" onClick={() => this.props.postLogin(this.state)}><span className="glyphicon glyphicon-off"></span> Login</button>
+                    <button  type="button" className="btn btn-success btn-block" data-dismiss="modal" onClick={() => this.setLogin(this.state)}><span className="glyphicon glyphicon-off"></span> Login</button>
                   </form>
                 </div>
                 <div className="modal-footer">
                   <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal"><span className="glyphicon glyphicon-remove"></span> Cancel</button>
-                  <p>Not a member? <a href="#">Sign Up</a></p>
+                  <p>Not a member? <a className='btn' data-dismiss="modal" data-toggle="modal" data-target="#myRegister">Sign Up</a></p>
                 </div>
               </div>
             </div>
@@ -105,22 +106,38 @@ class Navbar extends Component {
 
                     <div className="form-group">
                       <label for="psw"><span className="glyphicon glyphicon glyphicon-envelope"></span> Email </label>
-                    <input name= 'email' type="password" className="form-control" placeholder="Enter password" value= {this.state.email} onChange= {(event) => this.handleChange(event)}/>
+                    <input name= 'email' type="input" className="form-control" placeholder="Enter Yout Email" value= {this.state.email} onChange= {(event) => this.handleChange(event)}/>
                     </div>
 
-                    <button  type="button" className="btn btn-success btn-block" data-dismiss="modal" onClick={() => this.props.postLogin(this.state)}><span className="glyphicon glyphicon-off"></span> Login</button>
+                    <button  type="button" className="btn btn-success btn-block" data-dismiss="modal" onClick={() => this.setRegister(this.state)}><span className="glyphicon glyphicon-off"></span> Login</button>
 
                   </form>
                 </div>
                 <div className="modal-footer">
                   <button type="submit" className="btn btn-danger btn-default pull-left" data-dismiss="modal"><span className="glyphicon glyphicon-remove"></span> Cancel</button>
-                  <p>Not a member? <a href="#">Sign Up</a></p>
                 </div>
               </div>
             </div>
         </div>
       </div>
     )
+  }
+
+  setLogin(dataForm) {
+    this.props.postLogin(dataForm)
+    this.setState({
+      username: '',
+      password: ''
+    })
+  }
+
+  setRegister (dataForm) {
+    this.props.signup(dataForm)
+    this.setState({
+      username: '',
+      password: '',
+      email: ''
+    })
   }
  }
  const mapStateToProps = (state) => ({
@@ -137,6 +154,9 @@ class Navbar extends Component {
       },
       willToken: (data) => {
         dispatch(getToken(data))
+      },
+      signup: data => {
+        dispatch(register(data))
       }
     }
 }

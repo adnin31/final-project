@@ -1,64 +1,54 @@
 import React, {Component} from 'react'
 // import seat from '../screen.png'
-import firebase from 'firebase'
+import firebase from './firebase.js'
 import './Seat.css'
 import Listpage from './Listpage'
+import { connect } from 'react-redux'
+import { getUserFirebase } from '../actions/index'
 
-var config = {
-    apiKey: "AIzaSyCAndawPNofKLlN9W3EjWGYtqYnH1CneSc",
-    authDomain: "movie-trailer-175012.firebaseapp.com",
-    databaseURL: "https://movie-trailer-175012.firebaseio.com",
-    projectId: "movie-trailer-175012",
-    storageBucket: "movie-trailer-175012.appspot.com",
-    messagingSenderId: "584104791052"
-  };
-
-firebase.initializeApp(config);
-var database = firebase.database();
-var fireSeat1 = database.ref('/seat')
-var user = database.ref('/user')
-
+var db = firebase.database();
 
 class Seat extends Component {
   constructor(props) {
     super (props)
     this.state = {
       status : true,
-      counter: [],
+      seats: [],
       totalSeat: props.location.state.showtimeData[0].seatsTotal,
       booked: props.location.state.showtimeData[0].seatBooked,
       onBook: [],
       time: props.location.state.showtimeData[0].startTime,
       date: Date().split(' ').slice(0,4).join(' '),
+      studio: 'studio'+this.props.location.state.showtimeData[1].name,
       price: 35000
     }
   }
-  componentWillMount() {
-    var newCounterValue =[]
-    for (var i = 1; i <= this.state.totalSeat; i++) {
-      newCounterValue.push({
-        status: true,
-        user: '',
-        price: '',
+  setCounter() {
+    var newCounter = []
+    for (var i = 0 ; i < this.state.totalSeat; i++) {
+      newCounter.push({
         counter: 0
       })
     }
-    newCounterValue.map((value,idx) => {
-      var newBooked = this.state.booked.filter((booked)=>{
-        return `${idx}` === booked
-      })
-      console.log('ini newBooked' , newBooked);
-      if(`${idx}` === newBooked[0] ){
-        value.status = false
-      }
-    })
     this.setState({
-      counter : newCounterValue
+      seats : newCounter
     })
   }
 
+  componentWillMount() {
+    this.setCounter()
+    this.state.booked.forEach(booked => {
+      db.ref(`${this.state.studio}/${booked}`).set({
+        status: false
+      })
+    })
+    this.props.getSeatFirebase(this.state.studio)
+
+  }
+
   render() {
-    console.log('ini seat coy', this.props.location.state.showtimeData);
+      console.log("ini apa aja ",this.props.seats)
+      console.log('ini token',this.props.token)
     return (
       <div className = 'container'>
         <h1>Pick your seat</h1>
@@ -71,60 +61,88 @@ class Seat extends Component {
             <img src= {require('../assets/screen.png') }/>
             <div className= '' style = {boxStyleSeat}>
               {
-                this.state.counter.map((seat,idx) => {
+                this.props.seats.map((seat,idx) => {
                   return (
-                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat)}  key= {idx}> {idx+1}</button>
+                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
+                    disabled = {!seat.status}> {idx+1}</button>
                   )
                 })
               }
             </div>
           </div>
         </div>
-        <Listpage text= 'Summary'/>
-        <ul>
-          <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
-          <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
-          <p><span>Time </span>: {this.state.time} </p>
-          <p><span>Date </span>: {this.state.date} </p>
-        </ul>
-        <hr className= 'col-md-12'/>
-        <h3>
-          <span className= 'col-md-8'>Total</span>
-          <span className= 'col-md-4'> : Rp {this.state.onBook.length * this.state.price},00</span>
-        </h3>
-        <hr className= 'col-md-12'/>
-        <button className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2'>Book Now</button>
+          {
+
+            this.props.token !== null ?
+            <div>
+              <Listpage text= 'Summary'/>
+              <ul>
+                <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
+                <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
+                <p><span>Time </span>: {this.state.time} </p>
+                <p><span>Date </span>: {this.state.date} </p>
+              </ul>
+              <hr className= 'col-md-12'/>
+              <h3>
+                <span className= 'col-md-8'>Total</span>
+                <span className= 'col-md-4'> : Rp {this.state.onBook.length * this.state.price},00</span>
+              </h3>
+              <hr className= 'col-md-12'/>
+              <button className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2' onClick= {()=> this.booking()}>Book Now</button>
+            </div>
+            : ''
+          }
+
       </div>
     )
   }
 
-  buttonSeat (seat) {
-    let newCounter = this.state.counter.map((data,idx) => {
-      if(seat-1 === idx) data.counter ++
-      return data
+  filterSeat () {
+    var onbook = this.state.onBook.filter(index => {
+
     })
-    var newOnBook =  this.state.onBook
-    if (this.state.counter[seat-1].counter %2 !== 0) {
-      newOnBook.push(seat)
-    }else {
-      newOnBook.splice(newOnBook.indexOf(seat),1)
+  }
+  buttonSeat (seatId) {
+    console.log(seatId);
+    if (this.props.token === null) {
+        alert('You must login first')
+    } else {
+      let newCounter = this.state.seats.map((seat,idx) => {
+        if(seatId-1 === idx) seat.counter ++
+        return seat
+      })
+      var newOnBook =  this.state.onBook
+      if (this.state.seats[seatId-1].counter %2 !== 0) {
+        newOnBook.push(seatId)
+      }else {
+        newOnBook.splice(newOnBook.indexOf(seatId),1)
+      }
+      this.forceUpdate()
     }
-    this.forceUpdate()
 
   }
 
-  checkSeat (seat) {
+  checkSeat (seat,idx) {
     if(seat.status){
-      if (seat.counter % 2 === 0) {
-        return 'btn btn-primary'
+      if (this.state.seats[idx].counter % 2 === 0) {
+        return 'btn btn-default'
       } else {
-        return 'btn btn-warning'
+        return 'btn btn-success'
       }
     } else {
       return 'btn btn-danger disabled'
     }
   }
 
+  booking () {
+    this.state.onBook.forEach(seat => {
+      db.ref(`${this.state.studio}/${seat}`).set({
+        status: false
+      })
+    })
+
+    this.setCounter()
+  }
 }
 
 const boxStyle ={
@@ -144,11 +162,20 @@ const seatStyle = {
   height: '50px',
   marginRight: '10px',
   marginLeft: '10px',
-  // marginTop: '10px',
-  // marginBottom: '20px'
 
 }
 const button = {
   marginBottom: '20px'
 }
-export default Seat
+
+const mapStateToProps = (state) => ({
+  movieList: state.movie.movielist,
+  studioList: state.studio.studiolist,
+  token: state.token.token,
+  seats: state.seats.seats.slice(1,state.seats.seats.length)
+})
+
+const mapDispatchToProps = dispatch => ({
+    getSeatFirebase : studio => dispatch(getUserFirebase(studio))
+})
+export default connect(mapStateToProps, mapDispatchToProps) (Seat)

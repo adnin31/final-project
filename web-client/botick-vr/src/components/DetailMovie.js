@@ -2,6 +2,13 @@ import React, {Component} from 'react'
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Listpage from './Listpage'
 import './DetailMovie.css'
+import firebase from './firebase.js'
+
+
+var database = firebase.database();
+var fireSeat = database.ref('/')
+
+
 class DetailMovie extends Component {
   constructor (props) {
     super(props)
