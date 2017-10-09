@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { getAllMovie, getAllStudio } from '../actions/index'
+import './NowPlaying.css'
 
 class NowPlaying extends Component{
   constructor(props) {
@@ -33,7 +34,7 @@ class NowPlaying extends Component{
               <div className="col-sm-6 col-md-4 " style = {studio}>
                 <div className="thumbnail" >
                   <div className="caption text-center">
-                    <h3>{movie.title}</h3>
+                    <h3 className= 'test'>{movie.title}</h3>
                   </div>
                   <img style={{height: '550px', width: 'auto'}}src={movie.poster} />
                   <div className="caption text-center">

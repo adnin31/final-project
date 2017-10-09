@@ -3,6 +3,7 @@ import Carousel from './Carousel'
 import Listpage from './Listpage'
 import NowPlaying from './NowPlaying'
 
+
 class Home extends Component{
   render () {
     return (
