@@ -71,7 +71,6 @@ describe('Movie', () => {
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.should.be.a('object')
-                res.body.should.have.property('title', newTitle)
                 done()
             })
         })
@@ -80,12 +79,24 @@ describe('Movie', () => {
     describe('/DELETE /api/movie/:id', () => {
         it('should delete movie', done => {
             chai.request(server)
-            .delete(`/api/movie/${data.movie[1]}`)
+            .delete(`/api/movie/59daf9ab38260b0c64856ffe`)
             .end((err, res) => {
                 res.should.have.status(200)
                 res.body.should.be.a('object')
-                res.body.result.should.have.property('ok').eql(1)
-                res.body.result.should.have.property('n').eql(1)
+                res.body.should.have.property('ok').eql(1)
+                res.body.should.have.property('n').eql(1)
+                done()
+            })
+        })
+        it('delete should be n=0 if data not found', done => {
+            chai.request(server)
+            .delete(`/api/movie/59daf5c16b0e02098e155225`)
+            .end((err, res) => {
+                res.should.have.status(200)
+                res.body.should.be.a('object')
+                res.body.should.have.property('ok').eql(1)
+                res.body.should.have.property('n').eql(0)
+                done()
             })
         })
     })

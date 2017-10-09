@@ -8,15 +8,21 @@ const transporter = nodemailer.createTransport({
   }
 })
 
-var bookingId = Math.floor((Math.random() * 100) +54);
-var link = 'https://api.botick.ga/booking?verify='+bookingId
-var mailOptions = {
-  to: 'rusli.gani88@gmail.com',
-  subject: 'Test Confirm email',
-  html: "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
-}
-
 const sendMail = (req, res) => {
+  var header = {
+    username: req.headers.username,
+    seatBook: req.headers.seatBook,
+    email: req.headers.email
+  }
+    
+  var bookingId = Math.floor((Math.random() * 100) +54);
+  var link = 'https://api.botick.ga/booking?verify='+bookingId
+  var mailOptions = {
+    to: header.email,
+    subject: `Botick confirmation user: ${header.username}`,
+    html: `Hello ${header.username},<br> Please Click on the link to confirm your booking tickets.<br><a href=${link}>Click here to verify</a>`
+  }
+
     transporter.sendMail(mailOptions, (err, response) => {
       if (err) {
         console.log(err)
