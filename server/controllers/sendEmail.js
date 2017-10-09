@@ -12,7 +12,8 @@ const sendMail = (req, res) => {
   var header = {
     username: req.headers.username,
     seatBook: req.headers.seatBook,
-    email: req.headers.email
+    email: req.headers.email,
+    studio: req.headers.studio
   }
     
   var bookingId = Math.floor((Math.random() * 100) +54);
