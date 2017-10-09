@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { postLogin, logOut, getToken, register } from '../actions/index.js'
 
@@ -51,7 +51,6 @@ class Navbar extends Component {
                   <li style={{display: 'flex', alignItems: 'baseline'}}>
                     <a className= 'btn' data-toggle="modal" data-target="#myModal" >Login</a> or <a className= 'btn' data-toggle="modal" data-target="#myRegister" >Register</a>
                   </li>
-
                }
 
               </ul>

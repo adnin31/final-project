@@ -1,5 +1,6 @@
 import axios from 'axios'
 import firebase from '../components/firebase.js'
+import Home from '../components/Home.js'
 
 const api = 'https://botick-vr.appspot.com/api'
 const db = firebase.database()
@@ -32,6 +33,13 @@ export const getSeats = counterUser => ({
   }
 })
 
+export const statusEmail = status => ( {
+  type: 'SET_STATUS_EMAIL',
+    payload : {
+      status: status
+    }
+})
+
 export const getAllMovie = () => dispatch => {
   axios.get(api + `/movie/`)
   .then(({data}) => {
@@ -45,7 +53,6 @@ export const getAllMovie = () => dispatch => {
 export const getAllStudio = () => dispatch => {
   axios.get(api + `/studio/`)
   .then(({data}) => {
-    console.log('action axios get studio', data)
     dispatch(studioList(data))
   })
   .catch(err => {
@@ -72,12 +79,11 @@ export const logOut = dataUser => dispatch =>{
     username: dataUser,
     email: dataUser
   }
+  dispatch(getToken(newDataUser))
 }
 
 export const getUserFirebase = studio => dispatch => {
-  console.log('ini studio', studio);
   db.ref(studio).on('value',snapshot => {
-    console.log('ini snapshot',snapshot.val());
     dispatch(getSeats(snapshot.val()))
   })
 }
@@ -87,19 +93,17 @@ export const register = newUser => dispatch=> {
     ...newUser
   })
   .then(({data}) => {
-    console.log('data masuk dengan', data);
   })
 }
 
 export const sendEmail = dataEmail => dispatch => {
-  console.log(dataEmail);
-  // axios.post( api + '/sendmail',{}, {
-  //   headers : dataEmail
-  // })
-  // .then(({data}) => {
-  //   alert('Your code book is send')
-  // })
-  // .catch( err => {
-  //   alert('hayoooo salah')
-  // })
+  axios.post( `https://botick-vr.appspot.com/sendmail`,{}, {
+    headers : dataEmail
+  })
+  .then(({data}) => {
+    dispatch(statusEmail(true))
+  })
+  .catch( err => {
+    alert('hayoooo salah')
+  })
 }

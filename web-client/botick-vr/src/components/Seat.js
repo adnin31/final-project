@@ -141,6 +141,7 @@ class Seat extends Component {
 
   booking () {
     const dataEmail = {
+      studio: this.props.location.state.showtimeData[1].name,
       email: localStorage.getItem('email'),
       username: localStorage.getItem('username'),
       seatBook: this.state.onBook
