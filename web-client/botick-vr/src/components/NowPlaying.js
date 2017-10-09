@@ -1,5 +1,5 @@
-import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { getAllMovie, getAllStudio } from '../actions/index'
@@ -18,7 +18,6 @@ class NowPlaying extends Component{
   }
 
   render () {
-    console.log('ini di render', this.props.movieList)
     return (
       <div className= "container">
         <div className="row">
@@ -47,16 +46,6 @@ class NowPlaying extends Component{
         </div>
       </div>
     )
-  }
-
-  // componentWillReceiveProps () {
-  //   this.setState({
-  //     movie: this.props.movieList
-  //   })
-  // }
-
-  clickMovie () {
-    console.log('click ini');
   }
 }
 

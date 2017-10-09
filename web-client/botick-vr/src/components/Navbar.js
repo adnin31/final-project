@@ -14,7 +14,12 @@ class Navbar extends Component {
     }
   }
   componentWillMount () {
-    this.props.willToken(localStorage.getItem('token'))
+    var dataUser = {
+      token: localStorage.getItem('token'),
+      username: this.props.username,
+      email: this.props.email
+    }
+    this.props.willToken(dataUser)
   }
   handleChange(event) {
     this.setState({
@@ -26,7 +31,6 @@ class Navbar extends Component {
   }
 
   render () {
-    console.log('ini navbar token',);
     return(
       <div>
         <nav className ="navbar navbar-default">
@@ -43,7 +47,7 @@ class Navbar extends Component {
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>
               <ul className="nav navbar-nav navbar-right">
-                { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout(null)}>Logout</a></li>  :
+                { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout('')}>Logout</a></li>  :
                   <li style={{display: 'flex', alignItems: 'baseline'}}>
                     <a className= 'btn' data-toggle="modal" data-target="#myModal" >Login</a> or <a className= 'btn' data-toggle="modal" data-target="#myRegister" >Register</a>
                   </li>
@@ -70,7 +74,7 @@ class Navbar extends Component {
                     <input name= 'username' type="text" className= "form-control"  placeholder= "Enter user"  value= {this.state.username} onChange= {(e) => this.handleChange(e)}/>
                     </div>
                     <div className="form-group">
-                      <label for="psw"><span className="glyphicon glyphicon-eye-open"></span> Password</label>
+                      <label htmlFor="psw"><span className="glyphicon glyphicon-eye-open"></span> Password</label>
                     <input name= 'password' type="password" className="form-control" placeholder="Enter password" value= {this.state.password} onChange= {(event) => this.handleChange(event)}/>
                     </div>
                     <button  type="button" className="btn btn-success btn-block" data-dismiss="modal" onClick={() => this.setLogin(this.state)}><span className="glyphicon glyphicon-off"></span> Login</button>
@@ -100,12 +104,12 @@ class Navbar extends Component {
                     </div>
 
                     <div className="form-group">
-                      <label for="psw"><span className="glyphicon glyphicon-eye-open"></span> Password</label>
+                      <label htmlFor="psw"><span className="glyphicon glyphicon-eye-open"></span> Password</label>
                     <input name= 'password' type="password" className="form-control" placeholder="Enter password" value= {this.state.password} onChange= {(event) => this.handleChange(event)}/>
                     </div>
 
                     <div className="form-group">
-                      <label for="psw"><span className="glyphicon glyphicon glyphicon-envelope"></span> Email </label>
+                      <label htmlFor="psw"><span className="glyphicon glyphicon glyphicon-envelope"></span> Email </label>
                     <input name= 'email' type="input" className="form-control" placeholder="Enter Yout Email" value= {this.state.email} onChange= {(event) => this.handleChange(event)}/>
                     </div>
 
@@ -141,7 +145,9 @@ class Navbar extends Component {
   }
  }
  const mapStateToProps = (state) => ({
-   token: state.token.token
+   token: state.token.token,
+   email: state.token.email,
+   username: state.token.username
  })
 
  const mapDispatchToProps = (dispatch) => {

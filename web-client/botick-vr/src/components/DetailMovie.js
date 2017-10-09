@@ -6,7 +6,6 @@ import firebase from './firebase.js'
 
 
 var database = firebase.database();
-var fireSeat = database.ref('/')
 
 
 class DetailMovie extends Component {
@@ -44,9 +43,8 @@ class DetailMovie extends Component {
           <h3>Studio {std.name}</h3>
           {
             times.map((time,idx) => {
-              console.log(time);
               return (
-                <Link  key={idx} to= {{
+                <Link key={idx} to= {{
                     pathname: `/booking/${time._id}`,
                     state: {
                       showtimeData : [time, std]
@@ -61,7 +59,6 @@ class DetailMovie extends Component {
   }
 
   render () {
-    console.log('---------------', this.state.movie)
     return (
       <div className='container'>
         <div className='row' style={{'margin': '20px'}}>

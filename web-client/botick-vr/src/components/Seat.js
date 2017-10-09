@@ -4,7 +4,7 @@ import firebase from './firebase.js'
 import './Seat.css'
 import Listpage from './Listpage'
 import { connect } from 'react-redux'
-import { getUserFirebase } from '../actions/index'
+import { getUserFirebase, sendEmail } from '../actions/index'
 
 var db = firebase.database();
 
@@ -23,6 +23,7 @@ class Seat extends Component {
       price: 35000
     }
   }
+
   setCounter() {
     var newCounter = []
     for (var i = 0 ; i < this.state.totalSeat; i++) {
@@ -35,7 +36,7 @@ class Seat extends Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.setCounter()
     this.state.booked.forEach(booked => {
       db.ref(`${this.state.studio}/${booked}`).set({
@@ -43,12 +44,9 @@ class Seat extends Component {
       })
     })
     this.props.getSeatFirebase(this.state.studio)
-
   }
 
   render() {
-      console.log("ini apa aja ",this.props.seats)
-      console.log('ini token',this.props.token)
     return (
       <div className = 'container'>
         <h1>Pick your seat</h1>
@@ -64,7 +62,7 @@ class Seat extends Component {
                 this.props.seats.map((seat,idx) => {
                   return (
                     <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
-                    disabled = {!seat.status}> {idx+1}</button>
+                    disabled = {this.checkSeatDisable(seat.status, idx+1)}> {idx+1}</button>
                   )
                 })
               }
@@ -73,12 +71,12 @@ class Seat extends Component {
         </div>
           {
 
-            this.props.token !== null ?
+            this.props.token !== null && this.props.token !== '' ?
             <div>
               <Listpage text= 'Summary'/>
               <ul>
                 <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
-                <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
+              <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
                 <p><span>Time </span>: {this.state.time} </p>
                 <p><span>Date </span>: {this.state.date} </p>
               </ul>
@@ -97,13 +95,20 @@ class Seat extends Component {
     )
   }
 
-  filterSeat () {
-    var onbook = this.state.onBook.filter(index => {
-
-    })
+  checkSeatDisable(status, number) {
+    if(!status) {
+      const onBook = this.state.onBook.filter(index => index != number)
+      if(onBook.length !== this.state.onBook.length){
+        this.setState({
+          onBook
+        })
+      }
+      return true
+    }
+    return false
   }
+
   buttonSeat (seatId) {
-    console.log(seatId);
     if (this.props.token === null) {
         alert('You must login first')
     } else {
@@ -135,12 +140,17 @@ class Seat extends Component {
   }
 
   booking () {
+    const dataEmail = {
+      email: localStorage.getItem('email'),
+      username: localStorage.getItem('username'),
+      seatBook: this.state.onBook
+    }
+    this.props.sendEmail(dataEmail)
     this.state.onBook.forEach(seat => {
       db.ref(`${this.state.studio}/${seat}`).set({
         status: false
       })
     })
-
     this.setCounter()
   }
 }
@@ -172,10 +182,13 @@ const mapStateToProps = (state) => ({
   movieList: state.movie.movielist,
   studioList: state.studio.studiolist,
   token: state.token.token,
-  seats: state.seats.seats.slice(1,state.seats.seats.length)
+  seats: state.seats.seats.slice(1,state.seats.seats.length),
+  email: state.token.email,
+  username: state.token.username
 })
 
 const mapDispatchToProps = dispatch => ({
-    getSeatFirebase : studio => dispatch(getUserFirebase(studio))
+    getSeatFirebase : studio => dispatch(getUserFirebase(studio)),
+    sendEmail: (dataEmail) => dispatch(sendEmail(dataEmail))
 })
 export default connect(mapStateToProps, mapDispatchToProps) (Seat)

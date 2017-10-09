@@ -18,10 +18,10 @@ export const studioList = studio => ({
   }
 })
 
-export const getToken = token => ({
+export const getToken = data => ({
   type: 'SAVE_USER_TOKEN',
   payload: {
-    token: token
+    dataUser: data
   }
 })
 
@@ -59,13 +59,19 @@ export const postLogin = dataUser => dispatch =>{
   })
   .then( ({data}) => {
     localStorage.setItem('token',data.token)
-    dispatch(getToken(data.token))
+    localStorage.setItem('username',data.username)
+    localStorage.setItem('email',data.email)
+    dispatch(getToken(data))
   })
 }
 
 export const logOut = dataUser => dispatch =>{
   localStorage.removeItem('token')
-  dispatch(getToken(dataUser))
+  var newDataUser = {
+    token: dataUser,
+    username: dataUser,
+    email: dataUser
+  }
 }
 
 export const getUserFirebase = studio => dispatch => {
@@ -83,4 +89,17 @@ export const register = newUser => dispatch=> {
   .then(({data}) => {
     console.log('data masuk dengan', data);
   })
+}
+
+export const sendEmail = dataEmail => dispatch => {
+  console.log(dataEmail);
+  // axios.post( api + '/sendmail',{}, {
+  //   headers : dataEmail
+  // })
+  // .then(({data}) => {
+  //   alert('Your code book is send')
+  // })
+  // .catch( err => {
+  //   alert('hayoooo salah')
+  // })
 }
