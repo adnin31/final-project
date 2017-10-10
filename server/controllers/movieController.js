@@ -56,12 +56,12 @@ let addMovie = (req, res) => {
     console.log('-------------------> ', response._studioId[0])
     for(let a = 0 ; a < response._studioId.length ; a++) {
       studio.findById(response._studioId[a], (err, res2) => {
-          console.log('>>>>>>>>>>>>>>>',response._studioId)
-          for (let i = 0 ; i < response._studioId.length; i++) {
-            console.log('ini studio', res2)
-            for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
-              movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
-                console.log('ini movie show time', res3.seatsTotal)
+        console.log('>>>>>>>>>>>>>>>',response._studioId)
+        for (let i = 0 ; i < response._studioId.length; i++) {
+          console.log('ini studio', res2)
+          for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
+            movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
+                console.log('ini udh di filter', res3._studioId)
                 for (let j = 0 ; j < res3.seatsTotal ; j++) {
                   console.log('ini seats', res3.startTime)
                   database.ref(`${response._id}/studio${res2.name}/${res3.startTime.split('.').join(':')}/${j+1}/`).set({
@@ -70,9 +70,9 @@ let addMovie = (req, res) => {
                     selected: false
                   })
                 }
-              })
-            }
+            })
           }
+        }
       })
     }
     res.send(response)
