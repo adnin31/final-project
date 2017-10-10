@@ -1,14 +1,10 @@
 import React, {Component} from 'react'
 import './Carousel.css'
 class Carousel extends Component {
-  constructor() {
-    super()
-  }
-
   render() {
     return (
-      <div className="container">
-        <div id="myCarousel" className="carousel slide" data-ride="carousel">
+      <div className="container hidden-sm hidden-xs" >
+        <div id="myCarousel" className="carousel slide sm" data-ride="carousel">
           {/* <!-- Indicators --> */}
           <ol className="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" className="active"></li>

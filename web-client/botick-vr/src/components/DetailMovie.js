@@ -1,11 +1,7 @@
 import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Listpage from './Listpage'
 import './DetailMovie.css'
-import firebase from './firebase.js'
-
-
-var database = firebase.database();
 
 
 class DetailMovie extends Component {
@@ -67,15 +63,16 @@ class DetailMovie extends Component {
   render () {
     return (
       <div className='container'>
-        <div className='row' style={{'margin': '20px'}}>
+        <div className='row' style={{'margin': '30px'}}>
           <h1 style={{textAlign: 'center'}}>{this.state.movie.title}</h1>
           <hr className='col-md-12' style={{ marginBottom: '30px' }} />
-          <div className='col-md-4'>
-            <img style={{width: 'auto', height: '500px'}} src={this.state.movie.poster} />
-          </div>
-          <div className='col-md-6'>
-            <iframe width='720px' height='500px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
-
+          <div>
+            <div className='col-md-5'>
+              <img style={{width: 'auto', height: '400px'}} src={this.state.movie.poster} />
+            </div>
+            <div className='col-md-6'>
+              <iframe width='480px' height='360px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
+            </div>
           </div>
         </div>
         <Listpage text={this.state.title} />

@@ -21,7 +21,8 @@ class Seat extends Component {
       time: props.location.state.showtimeData[0].startTime,
       date: Date().split(' ').slice(0,4).join(' '),
       studio: 'studio'+this.props.location.state.showtimeData[1].name,
-      price: 35000
+      price: 35000,
+      seatSelected: 0
     }
   }
 
@@ -39,19 +40,54 @@ class Seat extends Component {
   componentWillMount() {
     this.props.getMovieShowTime(this.props.match.params.id)
     this.setCounter()
-    this.state.booked.forEach(booked => {
-      db.ref(`${this.state.studio}/${booked}`).set({
-        status: false,
-        counter: 0
-      })
-    })
+    console.log(this.state.booked);
+    // if (this.state.booked.length === 0 ) {
+    //   for (var i = 0; i < this.state.totalSeat.length; i++) {
+    //     db.ref(`${this.state.studio}/${i+1}`).set({
+    //       status: true,
+    //       counter: 0
+    //     })
+    //   }
+    // }else {
+    //   this.state.booked.forEach(booked => {
+    //     db.ref(`${this.state.studio}/${booked}`).set({
+    //       status: false,
+    //       counter: 0
+    //     })
+    //   })
+    // }
+
     this.props.getSeatFirebase(this.state.studio)
     console.log(this.props);
   }
 
   render() {
     return (
-      <div className = 'container'>
+      <div className = 'container' style={{marginTop:'75px'}}>
+        <div className="modal fade" id="seatModal" role="dialog">
+            <div className="modal-dialog">
+              {/* <!-- Modal content--> */}
+              <div className="modal-content">
+                <div className="modal-header text-center" style={{'padding':'35px 50px'}} >
+                  <button type="button" className="close" data-dismiss="modal">&times;</button>
+                <h4>Seat {this.state.seatSelected}</h4>
+                </div>
+                <div className="modal-body" style={{'padding':'40px 50px'}}>
+                {/* <div className= 'row modal'>
+                  <div>
+                    <button className = 'btn btn-primary'>Select This Seat </button>
+                  </div>
+                  <div>
+                    <button className = 'btn btn-succces modalButton'> View in vr </button>
+                  </div>
+
+                </div> */}
+                </div>
+                <div className="modal-footer">
+                </div>
+              </div>
+            </div>
+        </div>
         <h1>Pick your seat</h1>
         <div>
           <a className= 'btn btn-default' style={button} href= 'https://vr.ahmadaidil.cf/' target="_blank">See Your Cinema</a>
@@ -65,7 +101,7 @@ class Seat extends Component {
                 this.props.seats.map((seat,idx) => {
                   return (
                     <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
-                    disabled = {this.checkSeatDisable(seat.status, idx+1)}> {idx+1}</button>
+                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target="#seatModal"> {idx+1}</button>
                   )
                 })
               }
@@ -115,11 +151,14 @@ class Seat extends Component {
     if (this.props.token === null) {
         alert('You must login first')
     } else {
+      this.state.seatSelected = seatId
+
       let newCounter = this.state.seats.map((seat,idx) => {
         if(seatId-1 === idx) seat.counter ++
         return seat
       })
       var newOnBook =  this.state.onBook
+
       if (this.state.seats[seatId-1].counter %2 !== 0) {
         newOnBook.push(seatId)
       }else {

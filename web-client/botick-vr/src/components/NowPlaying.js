@@ -33,12 +33,7 @@ class NowPlaying extends Component{
               }} key={idx}>
               <div className="col-sm-6 col-md-4 " style = {studio}>
                 <div className="thumbnail" >
-                  <div className="caption text-center">
-                    <h3 className= 'test'>{movie.title}</h3>
-                  </div>
-                  <img style={{height: '550px', width: 'auto'}}src={movie.poster} />
-                  <div className="caption text-center">
-                  </div>
+                  <img style={{height: '350px', width: 'auto'}}src={movie.poster} />
                 </div>
               </div>
             </Link>

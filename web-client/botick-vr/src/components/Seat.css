@@ -5,6 +5,12 @@ body {
     font-family:sans-serif;
 }
 
+.modal {
+  display: flex;
+}
+.modalButton {
+  margin-right: 10px;
+}
 #ck-button {
     margin:4px;
     background-color:#EFEFEF;

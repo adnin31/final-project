@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { postLogin, logOut, getToken, register } from '../actions/index.js'
-
+import './Navbar.css'
 
 class Navbar extends Component {
   constructor() {
@@ -33,8 +33,8 @@ class Navbar extends Component {
   render () {
     return(
       <div>
-        <nav id="nav-menu" className ="navbar navbar-default">
-          <div className = "scontainer-fluid">
+        <nav id="nav-menu" className ="navbar navbar-default test navbar-fixed-top">
+          <div className = "container">
             <div className= "navbar-header">
               <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span className="sr-only">Toggle navigation</span>
@@ -42,10 +42,11 @@ class Navbar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link className="navbar-brand" to='/'>Botick</Link>
+              <Link className="navbar-brand" to='/'><img alt= 'logo' className= 'logo' src ='logo.png'/></Link>
             </div>
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>
+
               <ul className="nav navbar-nav navbar-right">
                 { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout('')}>Logout</a></li>  :
                   <li style={{display: 'flex', alignItems: 'baseline'}}>
@@ -67,7 +68,7 @@ class Navbar extends Component {
                   <h4><span className="glyphicon glyphicon-lock"></span> Login</h4>
                 </div>
                 <div className="modal-body" style={{'padding':'40px 50px'}}>
-                  <form role="form">
+                  <form >
                     <div className="form-group">
                       <label><span className="glyphicon glyphicon-user"></span> Username</label>
                     <input name= 'username' type="text" className= "form-control"  placeholder= "Enter user"  value= {this.state.username} onChange= {(e) => this.handleChange(e)}/>
@@ -95,7 +96,7 @@ class Navbar extends Component {
                 <h4><span className="glyphicon glyphicon-pencil"></span> Register</h4>
                 </div>
                 <div className="modal-body" style={{'padding':'40px 50px'}}>
-                  <form role="form">
+                  <form>
 
                     <div className="form-group">
                       <label><span className="glyphicon glyphicon-user"></span> Username</label>
