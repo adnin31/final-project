@@ -59,7 +59,7 @@ export default class Button extends React.Component {
               flexDirection: 'row',
               alignItems: 'center',
               opacity: this.state.opacityAnim,
-              paddingLeft: 0.4 * PPM
+              paddingLeft: 0.35 * PPM
             }}
             billboarding={'on'}
           >

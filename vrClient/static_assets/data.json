@@ -5,13 +5,13 @@
             "uri": "studio1-seat1.jpg",
             "tooltips": [
                 {
-                    "type": "text",
-                    "title": "Information",
+                    "type": "textImage",
                     "text": "Your position is studio 1, seat 1",
                     "rotationX": 35,
                     "rotationY": -45,
                     "width": 1,
-                    "height": 1
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
                 },
                 {
                     "type": "buttonBook",
@@ -19,8 +19,8 @@
                     "text": "Click here to add this seat to your book list",
                     "rotationX": 35,
                     "rotationY": -10,
-                    "width": 1,
-                    "height": 1
+                    "width": 1.280,
+                    "height": 1.280
                 },
                 {
                     "type": "buttonClose",

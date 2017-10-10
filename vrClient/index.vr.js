@@ -104,14 +104,14 @@ export default class vrClient extends React.Component {
 
   getBtnImage(type) {
     switch(type) {
-      case 'text':
-        return 'info.png'
       case 'buttonBook':
         return 'check.png'
       case 'buttonClose':
         return 'close.png'
       case 'trailer':
         return 'trailer.png'
+      default:
+        return 'info.png'
     }
   }
 
