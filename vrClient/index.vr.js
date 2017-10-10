@@ -3,13 +3,17 @@ import {
   AppRegistry,
   asset,
   Pano,
-  Text,
   View,
-  VrButton,
   NativeModules
 } from 'react-vr'
+import CylindricalPanel from 'CylindricalPanel'
+import Button from './button'
 
 const Location = NativeModules.Location
+const MAX_TEXTURE_WIDTH = 4096
+const MAX_TEXTURE_HEIGHT = 720
+const degreesToPixels = degrees => -(degrees / 360) * MAX_TEXTURE_WIDTH
+const PPM = 1 / (2 * Math.PI * 3) * MAX_TEXTURE_WIDTH
 
 export default class vrClient extends React.Component {
   constructor() {
@@ -51,17 +55,65 @@ export default class vrClient extends React.Component {
 
     const { pano } = this.state.data
     const seatId = this.state.seatId
-    const seatTooltips = pano[seatId]
-
+    const seatTooltips = pano[seatId].tooltips
+    console.log(seatTooltips)
     return (
       <View>
-        <Pano
-          source={asset(pano[seatId].uri)}
-        />
-        
+        <View style={{transform: [{rotateY: pano[seatId].rotationOffset}]}}>
+          <Pano
+            source={asset(pano[seatId].uri)}
+          />
+          <CylindricalPanel
+            layer={{
+              width: MAX_TEXTURE_WIDTH,
+              height: MAX_TEXTURE_HEIGHT,
+              density: MAX_TEXTURE_WIDTH
+            }}
+            position='absolute'
+          >
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: MAX_TEXTURE_WIDTH,
+                height: MAX_TEXTURE_HEIGHT
+              }}
+            >
+              <View>
+                { seatTooltips &&
+                  seatTooltips.map((tooltip, index) => {
+                    return (
+                      <Button
+                        key={index}
+                        pixelsPerMeter={PPM}
+                        source={asset(this.getBtnImage(tooltip.type))}
+                        tooltip={tooltip}
+                        translateX={degreesToPixels(tooltip.rotationY)}
+                      />
+                    )
+                  })
+                }
+              </View>
+            </View>
+          </CylindricalPanel>
+        </View>
       </View>
     )
   }
+
+  getBtnImage(type) {
+    switch(type) {
+      case 'text':
+        return 'info.png'
+      case 'buttonBook':
+        return 'check.png'
+      case 'buttonClose':
+        return 'close.png'
+      case 'trailer':
+        return 'trailer.png'
+    }
+  }
+
 }
 
 AppRegistry.registerComponent('vrClient', () => vrClient)
