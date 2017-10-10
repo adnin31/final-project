@@ -4,42 +4,40 @@ const Schema = mongoose.Schema
 let movieSchema = new Schema({
   title: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   overview: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   poster: String,
   trailer: String,
   rate: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   production: String,
   casts: [
     {
       type: String,
-      required: [true, '{PATH} cannot empty']
+      required: true
     }
   ],
   genre: [{
     type: String,
-    required: [true, '{PATH cannot empty}']
+    required: true
   }],
   yearProduction: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   _studioId: [{
     type: Schema.Types.ObjectId,
-    ref: 'Studio',
-    required: [true, '{PATH} cannot empty']
+    ref: 'Studio'
   }],
   _movieShowTimeId: [{
     type: Schema.Types.ObjectId,
-    ref: 'MovieShowTime',
-    required: [true, '{PATH} cannot empty']
+    ref: 'MovieShowTime'
   }]
 })
 

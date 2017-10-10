@@ -12,11 +12,11 @@ let movieShowTimeSchema = new Schema({
   },
   startTime: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   seatsTotal: {
     type: Number,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   seatAvailable: [{
     type: String

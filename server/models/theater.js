@@ -4,11 +4,11 @@ const Schema = mongoose.Schema
 let theaterSchema = new Schema({
   name: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   },
   address: {
     type: String,
-    required: [true, '{PATH} cannot empty']
+    required: true
   }
 })
 
