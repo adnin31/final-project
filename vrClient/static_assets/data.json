@@ -1,0 +1,62 @@
+{
+    "pano": {
+        "studio1-1": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "text",
+                    "text": "seat-1",
+                    "rotationY": "80"
+                },
+                {
+                    "type": "buttonBook",
+                    "text": "Add to your book list",
+                    "rotationY": "100"
+                },
+                {
+                    "type": "buttonClose",
+                    "text": "Close preview",
+                    "rotationY": "120"
+                },
+                {
+                    "type": "trailer",
+                    "rotationY": -80,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "Three-Cocktails.webm",
+                    "muted": true
+                }
+            ]
+        },
+        "studio1-2": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "text",
+                    "text": "seat-1",
+                    "rotationY": "80"
+                },
+                {
+                    "type": "buttonBook",
+                    "text": "Add to your book list",
+                    "rotationY": "100"
+                },
+                {
+                    "type": "buttonClose",
+                    "text": "Close preview",
+                    "rotationY": "120"
+                },
+                {
+                    "type": "trailer",
+                    "rotationY": -80,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "Three-Cocktails.webm",
+                    "muted": true
+                }
+            ]
+        }
+    }
+}
