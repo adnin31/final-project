@@ -4,7 +4,8 @@ import firebase from './firebase.js'
 import './Seat.css'
 import Listpage from './Listpage'
 import { connect } from 'react-redux'
-import { getUserFirebase, sendEmail } from '../actions/index'
+import { getUserFirebase, sendEmail, getMovieShowTime } from '../actions/index'
+// import uang from 'uang'
 
 var db = firebase.database();
 
@@ -24,7 +25,7 @@ class Seat extends Component {
     }
   }
 
-  setCounter() {
+  setCounter(data) {
     var newCounter = []
     for (var i = 0 ; i < this.state.totalSeat; i++) {
       newCounter.push({
@@ -35,15 +36,17 @@ class Seat extends Component {
       seats : newCounter
     })
   }
-
-  componentDidMount() {
+  componentWillMount() {
+    this.props.getMovieShowTime(this.props.match.params.id)
     this.setCounter()
     this.state.booked.forEach(booked => {
       db.ref(`${this.state.studio}/${booked}`).set({
-        status: false
+        status: false,
+        counter: 0
       })
     })
     this.props.getSeatFirebase(this.state.studio)
+    console.log(this.props);
   }
 
   render() {
@@ -83,7 +86,7 @@ class Seat extends Component {
               <hr className= 'col-md-12'/>
               <h3>
                 <span className= 'col-md-8'>Total</span>
-                <span className= 'col-md-4'> : Rp {this.state.onBook.length * this.state.price},00</span>
+                <span className= 'col-md-4'> : {this.uangFormatter(this.state.onBook.length * this.state.price)},00</span>
               </h3>
               <hr className= 'col-md-12'/>
               <button className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2' onClick= {()=> this.booking()}>Book Now</button>
@@ -139,6 +142,10 @@ class Seat extends Component {
     }
   }
 
+  uangFormatter(uang){
+    return uang.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
   booking () {
     const dataEmail = {
       studio: this.props.location.state.showtimeData[1].name,
@@ -185,11 +192,13 @@ const mapStateToProps = (state) => ({
   token: state.token.token,
   seats: state.seats.seats.slice(1,state.seats.seats.length),
   email: state.token.email,
-  username: state.token.username
+  username: state.token.username,
+  movieShowTime: state.movie.movieShowTime
 })
 
 const mapDispatchToProps = dispatch => ({
     getSeatFirebase : studio => dispatch(getUserFirebase(studio)),
-    sendEmail: (dataEmail) => dispatch(sendEmail(dataEmail))
+    sendEmail: dataEmail => dispatch(sendEmail(dataEmail)),
+    getMovieShowTime: idMovieShowTime => dispatch(getMovieShowTime(idMovieShowTime))
 })
 export default connect(mapStateToProps, mapDispatchToProps) (Seat)

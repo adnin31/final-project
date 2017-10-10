@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Carousel from './Carousel'
 import Listpage from './Listpage'
 import NowPlaying from './NowPlaying'
+import Footer from './Footer'
 
 
 class Home extends Component{
@@ -12,6 +13,7 @@ class Home extends Component{
           <Carousel></Carousel>
           <Listpage text= 'Now Playing'></Listpage>
           <NowPlaying></NowPlaying>
+          <Footer/>
         </div>
       </div>
 

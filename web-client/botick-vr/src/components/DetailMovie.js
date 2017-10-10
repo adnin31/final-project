@@ -32,20 +32,26 @@ class DetailMovie extends Component {
     })
   }
 
+  titleToDash(title) {
+    var patt = /\s/g;
+    var result = title.replace(patt,'-')
+    return result
+  }
+
   renderMovieShowTime () {
 
-    return this.state.studio.map(std => {
+    return this.state.studio.map((std,idx) => {
       var times = this.state.movie._movieShowTimeId.filter( showtime => {
         return std._id === showtime._studioId
       })
       return (
-        <div>
+        <div key={idx}>
           <h3>Studio {std.name}</h3>
           {
             times.map((time,idx) => {
               return (
                 <Link key={idx} to= {{
-                    pathname: `/booking/${time._id}`,
+                    pathname: `/booking/${ this.titleToDash(this.state.movie.title)}/${time._id}`,
                     state: {
                       showtimeData : [time, std]
                     }
@@ -108,13 +114,8 @@ class DetailMovie extends Component {
         <div className='row'>
           <div className='col-md-12'>
             <h2>Schedule</h2>
-
             <hr className='col-md-12' style={{'margin': '10px 0px 10px 0px'}}/>
-            <table className='table'>
-              <tbody>
-                {this.renderMovieShowTime()}
-              </tbody>
-            </table>
+            {this.renderMovieShowTime()}
           </div>
         </div>
       </div>

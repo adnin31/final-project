@@ -40,6 +40,13 @@ export const statusEmail = status => ( {
     }
 })
 
+export const showTime = movieShowTime => ({
+  type: 'GET_MOVIE_SHOWTIME',
+  payload : {
+    movieShowTime: movieShowTime
+  }
+})
+
 export const getAllMovie = () => dispatch => {
   axios.get(api + `/movie/`)
   .then(({data}) => {
@@ -105,5 +112,15 @@ export const sendEmail = dataEmail => dispatch => {
   })
   .catch( err => {
     alert('hayoooo salah')
+  })
+}
+
+export const getMovieShowTime = idShowTime => dispatch => {
+  axios.get(api + '/movieshowtime/' + idShowTime)
+  .then(({data}) => {
+    dispatch(showTime(data))
+  })
+  .catch(err => {
+    console.log('cant get showtime');
   })
 }
