@@ -56,7 +56,6 @@ export default class vrClient extends React.Component {
     const { pano } = this.state.data
     const seatId = this.state.seatId
     const seatTooltips = pano[seatId].tooltips
-    console.log(seatTooltips)
     return (
       <View>
         <View style={{transform: [{rotateY: pano[seatId].rotationOffset}]}}>

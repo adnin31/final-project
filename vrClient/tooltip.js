@@ -12,14 +12,8 @@ import {
 export default (props) => {
   const tooltip = props.tooltip
   const PPM = props.pixelsPerMeter
-  switch(tooltip.type) {
-    case 'text':
-      return <TextBlock tooltip={tooltip} pixelsPerMeter={PPM} />
-    case 'trailer':
-      return null
-    default:
-      return null
-  }
+  return tooltip.type != 'trailer' ?
+    <TextBlock tooltip={tooltip} pixelsPerMeter={PPM} /> : null  
 }
 
 class TextBlock extends React.Component {
@@ -29,9 +23,7 @@ class TextBlock extends React.Component {
 
   render() {
     const tooltip = this.props.tooltip
-    console.log(tooltip.text)
     const PPM = this.props.pixelsPerMeter
-    console.log(PPM)
     const fontSize = {
       attrib: 0.05 * PPM,
       text: 0.1 * PPM,
@@ -68,15 +60,6 @@ class TextBlock extends React.Component {
           }}>
           {tooltip.text}
         </Text>
-        {tooltip.attribution &&
-          <Text
-            style={{
-              fontSize: fontSize.attrib,
-              right: 0.02 * PPM,
-              textAlign: 'right',
-            }}>
-            {tooltip.attribution}
-          </Text>}
       </View>
     )
   }
