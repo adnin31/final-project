@@ -54,25 +54,27 @@ let addMovie = (req, res) => {
   })
   .then(response => {
     console.log('-------------------> ', response._studioId[0])
-    studio.findById(response._studioId[0], (err, res2) => {
-        console.log('>>>>>>>>>>>>>>>',response._movieShowTimeId[0])
-        for (let i = 0 ; i < response._studioId.length; i++) {
-          console.log('ini studio')
-          for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
-            movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
-              console.log('ini movie show time', res3.seatsTotal)
-              for (let j = 0 ; j < res3.seatsTotal ; j++) {
-                console.log('ini seats', res3.startTime)
-                database.ref(`${response.title}:${response._id}/studio${res2.name}/${res3.startTime.split('.').join(':')}/${j+1}/`).set({
-                  status: true,
-                  userid: '',
-                  counter: 0
-                })
-              }
-            })
+    for(let a = 0 ; a < response._studioId.length ; a++) {
+      studio.findById(response._studioId[a], (err, res2) => {
+          console.log('>>>>>>>>>>>>>>>',response._studioId)
+          for (let i = 0 ; i < response._studioId.length; i++) {
+            console.log('ini studio', res2)
+            for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
+              movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
+                console.log('ini movie show time', res3.seatsTotal)
+                for (let j = 0 ; j < res3.seatsTotal ; j++) {
+                  console.log('ini seats', res3.startTime)
+                  database.ref(`${response._id}/studio${res2.name}/${res3.startTime.split('.').join(':')}/${j+1}/`).set({
+                    status: true,
+                    userid: '',
+                    selected: false
+                  })
+                }
+              })
+            }
           }
-        }
-    })
+      })
+    }
     res.send(response)
   })
   .catch(err => {
