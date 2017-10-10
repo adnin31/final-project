@@ -1,7 +1,7 @@
 import React from 'react'
-import {Animated, Image, VrButton, View, Text} from 'react-vr'
+import {Animated, Image, VrButton} from 'react-vr'
 
-// import Tooltip from './Tooltip'
+import Tooltip from './tooltip'
 
 export default class Button extends React.Component {
   constructor(props) {
@@ -62,9 +62,7 @@ export default class Button extends React.Component {
             }}
             billboarding={'on'}
           >
-            <View>
-              <Text>{tooltip.text}</Text>
-            </View>
+            <Tooltip pixelsPerMeter={PPM} tooltip={this.props.tooltip} />
           </Animated.View>
         </Image>
       </VrButton>

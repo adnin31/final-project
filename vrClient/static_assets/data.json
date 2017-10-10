@@ -6,8 +6,11 @@
             "tooltips": [
                 {
                     "type": "text",
-                    "text": "seat-1",
-                    "rotationY": "80"
+                    "title": "Information",
+                    "text": "Your position is studio1, seat-1",
+                    "rotationY": 10,
+                    "width": 1.5,
+                    "height": 1.5
                 },
                 {
                     "type": "buttonBook",
