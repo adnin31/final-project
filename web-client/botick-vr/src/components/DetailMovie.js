@@ -49,7 +49,7 @@ class DetailMovie extends Component {
                 <Link key={idx} to= {{
                     pathname: `/booking/${ this.titleToDash(this.state.movie.title)}/${time._id}`,
                     state: {
-                      showtimeData : [time, std]
+                      showtimeData : [time, std, this.state.movie.title, this.state.movie._id]
                     }
                   }} className= 'btn btn-primary' style = {{marginRight : '20px'}}><h2>{time.startTime}</h2></Link>
               )
@@ -67,11 +67,11 @@ class DetailMovie extends Component {
           <h1 style={{textAlign: 'center'}}>{this.state.movie.title}</h1>
           <hr className='col-md-12' style={{ marginBottom: '30px' }} />
           <div>
-            <div className='col-md-5'>
-              <img style={{width: 'auto', height: '400px'}} src={this.state.movie.poster} />
+            <div className='col-md-4'>
+              <img style={{width: 'auto', height: '500px'}} src={this.state.movie.poster} />
             </div>
             <div className='col-md-6'>
-              <iframe width='480px' height='360px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
+              <iframe width='720px' height='500px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
             </div>
           </div>
         </div>

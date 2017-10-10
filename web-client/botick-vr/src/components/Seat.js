@@ -4,7 +4,7 @@ import firebase from './firebase.js'
 import './Seat.css'
 import Listpage from './Listpage'
 import { connect } from 'react-redux'
-import { getUserFirebase, sendEmail, getMovieShowTime } from '../actions/index'
+import { getSeatFirebase, sendEmail, getMovieShowTime } from '../actions/index'
 // import uang from 'uang'
 
 var db = firebase.database();
@@ -22,7 +22,8 @@ class Seat extends Component {
       date: Date().split(' ').slice(0,4).join(' '),
       studio: 'studio'+this.props.location.state.showtimeData[1].name,
       price: 35000,
-      seatSelected: 0
+      seatSelected: 0,
+      test: 'false'
     }
   }
 
@@ -37,28 +38,17 @@ class Seat extends Component {
       seats : newCounter
     })
   }
+
   componentWillMount() {
     this.props.getMovieShowTime(this.props.match.params.id)
     this.setCounter()
-    console.log(this.state.booked);
-    // if (this.state.booked.length === 0 ) {
-    //   for (var i = 0; i < this.state.totalSeat.length; i++) {
-    //     db.ref(`${this.state.studio}/${i+1}`).set({
-    //       status: true,
-    //       counter: 0
-    //     })
-    //   }
-    // }else {
-    //   this.state.booked.forEach(booked => {
-    //     db.ref(`${this.state.studio}/${booked}`).set({
-    //       status: false,
-    //       counter: 0
-    //     })
-    //   })
-    // }
+    db.ref('test/').on('value', snapshot => {
+      this.setState({
+        test: snapshot.val().selected
+      })
+    })
 
     this.props.getSeatFirebase(this.state.studio)
-    console.log(this.props);
   }
 
   render() {
@@ -73,15 +63,15 @@ class Seat extends Component {
                 <h4>Seat {this.state.seatSelected}</h4>
                 </div>
                 <div className="modal-body" style={{'padding':'40px 50px'}}>
-                {/* <div className= 'row modal'>
+                <div className= 'row-seat'>
                   <div>
                     <button className = 'btn btn-primary'>Select This Seat </button>
                   </div>
                   <div>
-                    <button className = 'btn btn-succces modalButton'> View in vr </button>
+                    <button className = 'btn btn-success modalButton'> View in vr </button>
                   </div>
 
-                </div> */}
+                </div>
                 </div>
                 <div className="modal-footer">
                 </div>
@@ -90,12 +80,12 @@ class Seat extends Component {
         </div>
         <h1>Pick your seat</h1>
         <div>
-          <a className= 'btn btn-default' style={button} href= 'https://vr.ahmadaidil.cf/' target="_blank">See Your Cinema</a>
+          <a className= 'btn btn-default' style={button} href= 'https://vr.ahmadaidil.cf/' >See Your Cinema</a>
         </div>
 
         <div className= 'container' style= {boxStyle} >
           <div className='text-center'>
-            <img src= {require('../assets/screen.png') }/>
+            <img alt='screen' src= {require('../assets/screen.png') }/>
             <div className= '' style = {boxStyleSeat}>
               {
                 this.props.seats.map((seat,idx) => {
@@ -108,6 +98,8 @@ class Seat extends Component {
             </div>
           </div>
         </div>
+          <button onClick= {()=>this.clickTest()}> test cok</button>
+          <h1>{this.state.test}</h1>
           {
 
             this.props.token !== null && this.props.token !== '' ?
@@ -115,7 +107,8 @@ class Seat extends Component {
               <Listpage text= 'Summary'/>
               <ul>
                 <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
-              <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
+                <h4>Title: {this.props.location.state.showtimeData[2]}</h4>
+                <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
                 <p><span>Time </span>: {this.state.time} </p>
                 <p><span>Date </span>: {this.state.date} </p>
               </ul>
@@ -133,7 +126,19 @@ class Seat extends Component {
       </div>
     )
   }
-
+  clickTest () {
+    if(this.state.test !== 'true') {
+      db.ref('test/').set({
+        selected: 'true',
+        user: `${localStorage.getItem('username')}`
+      })
+    }else {
+      db.ref('test/').set({
+        selected: 'false',
+        user: `${localStorage.getItem('username')}`
+      })
+    }
+  }
   checkSeatDisable(status, number) {
     if(!status) {
       const onBook = this.state.onBook.filter(index => index != number)
@@ -152,19 +157,6 @@ class Seat extends Component {
         alert('You must login first')
     } else {
       this.state.seatSelected = seatId
-
-      let newCounter = this.state.seats.map((seat,idx) => {
-        if(seatId-1 === idx) seat.counter ++
-        return seat
-      })
-      var newOnBook =  this.state.onBook
-
-      if (this.state.seats[seatId-1].counter %2 !== 0) {
-        newOnBook.push(seatId)
-      }else {
-        newOnBook.splice(newOnBook.indexOf(seatId),1)
-      }
-      this.forceUpdate()
     }
 
   }
@@ -229,14 +221,14 @@ const mapStateToProps = (state) => ({
   movieList: state.movie.movielist,
   studioList: state.studio.studiolist,
   token: state.token.token,
-  seats: state.seats.seats.slice(1,state.seats.seats.length),
+  seats: state.firebase.seats,
   email: state.token.email,
   username: state.token.username,
   movieShowTime: state.movie.movieShowTime
 })
 
 const mapDispatchToProps = dispatch => ({
-    getSeatFirebase : studio => dispatch(getUserFirebase(studio)),
+    getSeatFirebase : studio => dispatch(getSeatFirebase(studio)),
     sendEmail: dataEmail => dispatch(sendEmail(dataEmail)),
     getMovieShowTime: idMovieShowTime => dispatch(getMovieShowTime(idMovieShowTime))
 })

@@ -42,7 +42,7 @@ class Navbar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link className="navbar-brand" to='/'><img alt= 'logo' className= 'logo' src ='logo.png'/></Link>
+              <Link className="navbar-brand" to='/'><img alt= 'logo' className= 'logo-navbar' src ='logo.png'/></Link>
             </div>
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>

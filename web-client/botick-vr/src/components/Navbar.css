@@ -15,7 +15,7 @@
 
 .navbar-default {
     background-color: transparent;
-     border-color: traparennt; 
+     border-color: traparennt;
 }
 
 #nav-menu {
@@ -29,7 +29,7 @@
     background-color: transparent;
 }
 
-.logo {
+.logo-navbar {
   width: auto;
   height: 30px;
 }

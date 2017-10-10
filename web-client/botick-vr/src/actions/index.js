@@ -89,8 +89,9 @@ export const logOut = dataUser => dispatch =>{
   dispatch(getToken(newDataUser))
 }
 
-export const getUserFirebase = studio => dispatch => {
+export const getSeatFirebase = studio => dispatch => {
   db.ref(studio).on('value',snapshot => {
+    console.log('ini get userfirebase', snapshot.val());
     dispatch(getSeats(snapshot.val()))
   })
 }
