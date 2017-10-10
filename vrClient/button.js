@@ -37,6 +37,7 @@ export default class Button extends React.Component {
           transform: [
             {rotateY: 0},
             {translateX: this.props.translateX},
+            {translateY: this.props.translateY},
             {translateZ: 0}
           ]
         }}

@@ -8,15 +8,17 @@
                     "type": "text",
                     "title": "Information",
                     "text": "Your position is studio 1, seat 1",
-                    "rotationY": 10,
-                    "width": 1.5,
-                    "height": 1.5
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1
                 },
                 {
                     "type": "buttonBook",
                     "title": "Add to your book list",
                     "text": "Click here to add this seat to your book list",
-                    "rotationY": "100",
+                    "rotationX": 35,
+                    "rotationY": -10,
                     "width": 1,
                     "height": 1
                 },
@@ -24,13 +26,15 @@
                     "type": "buttonClose",
                     "title": "Close preview",
                     "text": "Click here to close this seat preview",
-                    "rotationY": "120",
+                    "rotationX": 35,
+                    "rotationY": 25,
                     "width": 1,
                     "height": 1
                 },
                 {
                     "type": "trailer",
-                    "rotationY": -80,
+                    "rotationX": 0,
+                    "rotationY": -10,
                     "width": 2.500,
                     "height": 1.240,
                     "source": "Three-Cocktails.webm",

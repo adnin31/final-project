@@ -12,8 +12,9 @@ import Button from './button'
 const Location = NativeModules.Location
 const MAX_TEXTURE_WIDTH = 4096
 const MAX_TEXTURE_HEIGHT = 720
-const degreesToPixels = degrees => -(degrees / 360) * MAX_TEXTURE_WIDTH
 const PPM = 1 / (2 * Math.PI * 3) * MAX_TEXTURE_WIDTH
+const translateX = degrees => -(degrees / 360) * MAX_TEXTURE_WIDTH
+const translateY = degress => -(degress / 360) * MAX_TEXTURE_HEIGHT
 
 export default class vrClient extends React.Component {
   constructor() {
@@ -87,7 +88,8 @@ export default class vrClient extends React.Component {
                         pixelsPerMeter={PPM}
                         source={asset(this.getBtnImage(tooltip.type))}
                         tooltip={tooltip}
-                        translateX={degreesToPixels(tooltip.rotationY)}
+                        translateX={translateX(tooltip.rotationX)}
+                        translateY={translateY(tooltip.rotationY)}
                       />
                     )
                   })
