@@ -39,6 +39,7 @@ describe('movieShowTime', () => {
         let movieShowTime = {
             _movieId: movie._id,
             _studioId: studio._id,
+            showDate: new Date(),
             startTime: '19.00',
             seatsTotal: 5,
             seatAvailable: ['1','2','3'],
@@ -52,6 +53,7 @@ describe('movieShowTime', () => {
             .end((err, res) => {
               res.should.have.status(200)
               res.body.should.be.a('object')
+              res.body.should.have.property('showDate')
               res.body.should.have.property('startTime')
               res.body.should.have.property('seatsTotal')
               res.body.should.have.property('seatAvailable')

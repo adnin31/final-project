@@ -61,7 +61,7 @@ let addMovie = (req, res) => {
           console.log('ini studio', res2)
           for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
             movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
-                console.log('ini udh di filter', res3._studioId)
+                console.log('ini udh di filter', res3)
                 for (let j = 0 ; j < res3.seatsTotal ; j++) {
                   console.log('ini seats', res3.startTime)
                   database.ref(`${response._id}/studio${res2.name}/${res3.startTime.split('.').join(':')}/${j+1}/`).set({
