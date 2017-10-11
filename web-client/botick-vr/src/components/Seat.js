@@ -76,7 +76,7 @@ class Seat extends Component {
                     <button className = 'btn btn-primary' data-dismiss="modal" onClick={() => this.clickModal(this.state.seatSelected)}>Select This Seat </button>
                   </div>
                   <div>
-                    <a href= {`http://18ebeb52.ngrok.io/vr/?${this.props.match.params.id}/${this.state.studio}/${this.props.location.state.showtimeData[0].startTime.split('.').join(':')}/${this.state.seatSelected}`} target="_blank"className = 'btn btn-success modalButton'> View in vr </a>
+                    <a href= {`http://vr.ahmadaidil.cf/?${this.props.match.params.id}/${this.state.studio}/${this.props.location.state.showtimeData[0].startTime.split('.').join(':')}/${this.state.seatSelected}`} target="_blank"className = 'btn btn-success modalButton'> View in vr </a>
                   </div>
 
                 </div>
