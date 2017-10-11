@@ -1,0 +1,26 @@
+{
+  "name": "final-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rusliabdulgani/final-project.git"
+  },
+  "author": "gani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rusliabdulgani/final-project/issues"
+  },
+  "homepage": "https://github.com/rusliabdulgani/final-project#readme",
+  "dependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0"
+  }
+}

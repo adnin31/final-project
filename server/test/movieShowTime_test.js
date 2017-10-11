@@ -23,6 +23,7 @@ describe('movieShowTime', () => {
             poster: 'https://image.tmdb.org/t/p/w640/inVq3FRqcYIRl2la8iZikYYxFNR.jpg',
             trailer: 'https://youtu.be/9vN6DHB6bJc',
             rate: '18+',
+            showDate: new Date(),
             production: '20th century fox',
             casts: ['Ryan Reynolds', 'Morena Baccarin', 'Ed Skrein', 'T.J. Miller', 'Gina Carano'],
             genre: ['action', 'adventure', 'comedy'],
@@ -39,6 +40,7 @@ describe('movieShowTime', () => {
         let movieShowTime = {
             _movieId: movie._id,
             _studioId: studio._id,
+            showDate: new Date(),
             startTime: '19.00',
             seatsTotal: 5,
             seatAvailable: ['1','2','3'],
@@ -52,6 +54,7 @@ describe('movieShowTime', () => {
             .end((err, res) => {
               res.should.have.status(200)
               res.body.should.be.a('object')
+              res.body.should.have.property('showDate')
               res.body.should.have.property('startTime')
               res.body.should.have.property('seatsTotal')
               res.body.should.have.property('seatAvailable')
