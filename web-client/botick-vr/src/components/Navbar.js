@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { postLogin, logOut, getToken, register } from '../actions/index.js'
-
+import './Navbar.css'
 
 class Navbar extends Component {
   constructor() {
@@ -33,8 +33,12 @@ class Navbar extends Component {
   render () {
     return(
       <div>
-        <nav id="nav-menu" className ="navbar navbar-default">
-          <div className = "scontainer-fluid">
+
+        <nav id="nav-menu" className ="navbar navbar-default navbar-fixed-top">
+        <div className ="navbar navbar-default navbar-logo" >
+          <Link className="navbar-brand" to='/'><img alt='logo' className= 'logo-navbar' src ='https://s3.us-east-2.amazonaws.com/botick-storage/logo.png'/></Link>
+        </div>
+          <div className = "container">
             <div className= "navbar-header">
               <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span className="sr-only">Toggle navigation</span>
@@ -42,7 +46,6 @@ class Navbar extends Component {
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <Link className="navbar-brand" to='/'>Botick</Link>
             </div>
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>

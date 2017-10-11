@@ -14,7 +14,7 @@ class Seat extends Component {
     super (props)
     this.state = {
       status : true,
-      seats: [],
+      seats: [{counter:0}],
       totalSeat: props.location.state.showtimeData[0].seatsTotal,
       booked: props.location.state.showtimeData[0].seatBooked,
       onBook: [],
@@ -23,31 +23,40 @@ class Seat extends Component {
       studio: 'studio'+this.props.location.state.showtimeData[1].name,
       price: 35000,
       seatSelected: 0,
-      test: 'false'
+      test: 'false',
+      firebaseAddress : '',
+      dataTarget: ''
     }
   }
 
-  setCounter(data) {
-    var newCounter = []
-    for (var i = 0 ; i < this.state.totalSeat; i++) {
-      newCounter.push({
-        counter: 0
+  setSeats(data) {
+    db.ref(`${data.movieId}/${data.studio}/${data.time}`)
+    .on('value', snapshot => {
+      var newSeats = snapshot.val().slice(1, snapshot.val().length)
+
+      var newOnBook =  []
+      snapshot.val().forEach( (data,idx) => {
+        if (data.userid === localStorage.getItem('username')) {
+          newOnBook.push(idx)
+        }
       })
-    }
-    this.setState({
-      seats : newCounter
+      console.log('ini newOnBook',newOnBook);
+      this.setState({
+        onBook: newOnBook,
+        firebaseAddress: `${data.movieId}/${data.studio}/${data.time}`,
+        seats : newSeats
+      })
     })
   }
 
   componentWillMount() {
+    let variableFirebase = {
+      movieId: this.props.location.state.showtimeData[3],
+      studio: 'studio'+this.props.location.state.showtimeData[1].name,
+      time: this.props.location.state.showtimeData[0].startTime.split('.').join(':')
+    }
+    this.setSeats(variableFirebase)
     this.props.getMovieShowTime(this.props.match.params.id)
-    this.setCounter()
-    db.ref('test/').on('value', snapshot => {
-      this.setState({
-        test: snapshot.val().selected
-      })
-    })
-
     this.props.getSeatFirebase(this.state.studio)
   }
 
@@ -65,7 +74,7 @@ class Seat extends Component {
                 <div className="modal-body" style={{'padding':'40px 50px'}}>
                 <div className= 'row-seat'>
                   <div>
-                    <button className = 'btn btn-primary'>Select This Seat </button>
+                    <button className = 'btn btn-primary' data-dismiss="modal" onClick={() => this.clickModal(this.state.seatSelected)}>Select This Seat </button>
                   </div>
                   <div>
                     <button className = 'btn btn-success modalButton'> View in vr </button>
@@ -88,18 +97,16 @@ class Seat extends Component {
             <img alt='screen' src= {require('../assets/screen.png') }/>
             <div className= '' style = {boxStyleSeat}>
               {
-                this.props.seats.map((seat,idx) => {
+                this.state.seats.map((seat,idx) => {
                   return (
-                    <button onClick = {() => this.buttonSeat(idx+1)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
-                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target="#seatModal"> {idx+1}</button>
+                    <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
+                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={this.state.dataTarget}> {idx+1}</button>
                   )
                 })
               }
             </div>
           </div>
         </div>
-          <button onClick= {()=>this.clickTest()}> test cok</button>
-          <h1>{this.state.test}</h1>
           {
 
             this.props.token !== null && this.props.token !== '' ?
@@ -108,7 +115,7 @@ class Seat extends Component {
               <ul>
                 <h4>Studio {this.props.location.state.showtimeData[1].name}</h4>
                 <h4>Title: {this.props.location.state.showtimeData[2]}</h4>
-                <p><span>Seat </span>: {this.state.onBook.join(', ')} </p>
+                <p><span>Seat </span>: {this.state.onBook} </p>
                 <p><span>Time </span>: {this.state.time} </p>
                 <p><span>Date </span>: {this.state.date} </p>
               </ul>
@@ -126,18 +133,12 @@ class Seat extends Component {
       </div>
     )
   }
-  clickTest () {
-    if(this.state.test !== 'true') {
-      db.ref('test/').set({
-        selected: 'true',
-        user: `${localStorage.getItem('username')}`
-      })
-    }else {
-      db.ref('test/').set({
-        selected: 'false',
-        user: `${localStorage.getItem('username')}`
-      })
-    }
+  clickModal (seatId) {
+    db.ref(this.state.firebaseAddress+`/${seatId}`).set({
+      selected: true,
+      userid: localStorage.getItem('username'),
+      status: true
+    })
   }
   checkSeatDisable(status, number) {
     if(!status) {
@@ -152,18 +153,54 @@ class Seat extends Component {
     return false
   }
 
-  buttonSeat (seatId) {
+  buttonSeat (seatId,status,userId) {
     if (this.props.token === null) {
         alert('You must login first')
+        this.setState({
+          dataTarget: ''
+        })
     } else {
       this.state.seatSelected = seatId
+      if(!status){
+          this.setState({
+            dataTarget: '#seatModal'
+          })
+      }
+      else{
+        if (userId !== "" ) {
+          if (localStorage.getItem('username') === userId) {
+            this.setState({
+              dataTarget: ''
+            })
+            db.ref(this.state.firebaseAddress+`/${seatId}`).set({
+              selected: false,
+              userid: '',
+              status: true
+            })
+          }
+          else {
+            alert('someone looking for you seat please choose another seat')
+          }
+
+        } else {
+          this.setState({
+            dataTarget: ''
+          })
+          db.ref(this.state.firebaseAddress+`/${seatId}`).set({
+            selected: false,
+            userid: '',
+            status: true
+          })
+        }
+
+      }
     }
 
   }
 
   checkSeat (seat,idx) {
     if(seat.status){
-      if (this.state.seats[idx].counter % 2 === 0) {
+      if (!this.state.seats[idx].counter && this.state.seats[idx].userid !== localStorage.getItem('username')) {
         return 'btn btn-default'
       } else {
         return 'btn btn-success'
@@ -185,12 +222,13 @@ class Seat extends Component {
       seatBook: this.state.onBook
     }
     this.props.sendEmail(dataEmail)
+    var statusUpdates = {}
+
     this.state.onBook.forEach(seat => {
-      db.ref(`${this.state.studio}/${seat}`).set({
-        status: false
-      })
+      statusUpdates[`${this.state.firebaseAddress}/${seat}`]= false
+      db.ref().update(statusUpdates)
     })
-    this.setCounter()
+    
   }
 }
 

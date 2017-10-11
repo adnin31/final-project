@@ -91,7 +91,7 @@ export const logOut = dataUser => dispatch =>{
 
 export const getSeatFirebase = studio => dispatch => {
   db.ref(studio).on('value',snapshot => {
-    console.log('ini get userfirebase', snapshot.val());
+    // console.log('ini get userfirebase', snapshot.val());
     dispatch(getSeats(snapshot.val()))
   })
 }

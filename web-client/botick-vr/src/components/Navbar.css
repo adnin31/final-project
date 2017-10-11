@@ -1,6 +1,16 @@
-
+.navbar-logo{
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  background-color: 
+}
 .test {
     color: #fff;
+}
+.navbar {
+     border-radius: 0;
+    margin-bottom: 0;
+    border: 0
 }
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     /* border-color: #e7e7e7; */
@@ -15,8 +25,8 @@
 }
 
 .navbar-default {
-    background-color: transparent;
-     border-color: traparennt;
+    background-color: #f8f8f8;
+    /* border-color: #e7e7e7; */
 }
 
 #nav-menu {
@@ -32,7 +42,7 @@
 
 .logo-navbar {
   width: auto;
-  height: 30px;
+  height: 51px;
 }
 
 .navbar-default .navbar-brand {
