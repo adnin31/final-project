@@ -2,6 +2,3 @@ language: node_js
 node_js: 
    - "node"
    - "8"
-env: 
-  global: 
-    - TRAVIS_BUILD_DIR= /home/gani/hacktiv8/final-project/server
