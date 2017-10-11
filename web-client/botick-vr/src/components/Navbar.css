@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-around;
   height: 60px;
-  background-color: 
+  background-color:
 }
 .test {
     color: #fff;
@@ -42,7 +42,7 @@
 
 .logo-navbar {
   width: auto;
-  height: 51px;
+  height: 41px;
 }
 
 .navbar-default .navbar-brand {

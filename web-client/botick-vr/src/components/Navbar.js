@@ -49,6 +49,10 @@ class Navbar extends Component {
             </div>
 
             <div className = "navbar-collapse collapse" id = "bs-example-navbar-collapse-1" aria-expanded="false" style={{height: 1}}>
+              <ul className= 'nav navbar-nav'>
+                <li style={{display: 'flex', alignItems: 'baseline'}}><span className= 'glyphicon glyphicon-tag'></span> <a className= 'btn'> Coming Soon </a></li>
+                <li style={{display: 'flex', alignItems: 'baseline'}}><span className= 'glyphicon glyphicon-film'></span><a className= 'btn'> Trailer </a></li>
+              </ul>
               <ul className="nav navbar-nav navbar-right">
                 { this.props.token ? <li><a className= 'btn' onClick= {() => this.props.logout('')}>Logout</a></li>  :
                   <li style={{display: 'flex', alignItems: 'baseline'}}>

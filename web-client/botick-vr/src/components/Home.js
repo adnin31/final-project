@@ -8,7 +8,7 @@ class Home extends Component{
   render () {
     return (
       <div >
-        <div style={{marginTop:'75px'}}>
+        <div style={{marginTop:'114px'}}>
           <Carousel></Carousel>
           <Listpage text= 'Now Playing'></Listpage>
           <NowPlaying></NowPlaying>

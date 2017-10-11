@@ -30,17 +30,16 @@ class Seat extends Component {
   }
 
   setSeats(data) {
+    console.log(`${data.movieId}/${data.studio}/${data.time}`);
     db.ref(`${data.movieId}/${data.studio}/${data.time}`)
     .on('value', snapshot => {
       var newSeats = snapshot.val().slice(1, snapshot.val().length)
-
       var newOnBook =  []
       snapshot.val().forEach( (data,idx) => {
-        if (data.userid === localStorage.getItem('username')) {
+        if (data.selected) {
           newOnBook.push(idx)
         }
       })
-      console.log('ini newOnBook',newOnBook);
       this.setState({
         onBook: newOnBook,
         firebaseAddress: `${data.movieId}/${data.studio}/${data.time}`,
@@ -49,20 +48,20 @@ class Seat extends Component {
     })
   }
 
-  componentWillMount() {
+  componentDidMount() {
     let variableFirebase = {
       movieId: this.props.location.state.showtimeData[3],
       studio: 'studio'+this.props.location.state.showtimeData[1].name,
       time: this.props.location.state.showtimeData[0].startTime.split('.').join(':')
     }
     this.setSeats(variableFirebase)
-    this.props.getMovieShowTime(this.props.match.params.id)
+    this.props.getMovieShowTime(this.props.location.state.showtimeData[0]._id)
     this.props.getSeatFirebase(this.state.studio)
   }
 
   render() {
     return (
-      <div className = 'container' style={{marginTop:'75px'}}>
+      <div className = 'container' style={{marginTop:'100px'}}>
         <div className="modal fade" id="seatModal" role="dialog">
             <div className="modal-dialog">
               {/* <!-- Modal content--> */}
@@ -77,7 +76,7 @@ class Seat extends Component {
                     <button className = 'btn btn-primary' data-dismiss="modal" onClick={() => this.clickModal(this.state.seatSelected)}>Select This Seat </button>
                   </div>
                   <div>
-                    <button className = 'btn btn-success modalButton'> View in vr </button>
+                    <a href= {`http://18ebeb52.ngrok.io/vr/?${this.props.match.params.id}/${this.state.studio}/${this.props.location.state.showtimeData[0].startTime.split('.').join(':')}/${this.state.seatSelected}`} target="_blank"className = 'btn btn-success modalButton'> View in vr </a>
                   </div>
 
                 </div>
@@ -88,19 +87,19 @@ class Seat extends Component {
             </div>
         </div>
         <h1>Pick your seat</h1>
-        <div>
-          <a className= 'btn btn-default' style={button} href= 'https://vr.ahmadaidil.cf/' >See Your Cinema</a>
-        </div>
 
-        <div className= 'container' style= {boxStyle} >
+        <div className= 'container'>
           <div className='text-center'>
-            <img alt='screen' src= {require('../assets/screen.png') }/>
-            <div className= '' style = {boxStyleSeat}>
+            <div >
+              <img alt='screen' src= {require('../assets/screen.png') }/>
+            </div>
+
+          <div className= 'col-md-offset-4' style = {boxStyleSeat}>
               {
                 this.state.seats.map((seat,idx) => {
                   return (
-                    <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={this.checkSeat(seat,idx)}  key= {idx}
-                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={this.state.dataTarget}> {idx+1}</button>
+                    <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={  seat.status ?  seat.selected ? 'btn btn-success' : 'btn btn-default' : 'btn btn-danger disabled'}  key= {idx}
+                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={seat.selected ? '' :'#seatModal'}> {idx+1}</button>
                   )
                 })
               }
@@ -108,7 +107,6 @@ class Seat extends Component {
           </div>
         </div>
           {
-
             this.props.token !== null && this.props.token !== '' ?
             <div>
               <Listpage text= 'Summary'/>
@@ -136,7 +134,6 @@ class Seat extends Component {
   clickModal (seatId) {
     db.ref(this.state.firebaseAddress+`/${seatId}`).set({
       selected: true,
-      userid: localStorage.getItem('username'),
       status: true
     })
   }
@@ -160,54 +157,24 @@ class Seat extends Component {
           dataTarget: ''
         })
     } else {
-      this.state.seatSelected = seatId
-      if(!status){
-          this.setState({
-            dataTarget: '#seatModal'
-          })
-      }
-      else{
-        if (userId !== "" ) {
-          if (localStorage.getItem('username') === userId) {
-            this.setState({
-              dataTarget: ''
-            })
-            db.ref(this.state.firebaseAddress+`/${seatId}`).set({
-              selected: false,
-              userid: '',
-              status: true
-            })
-          }
-          else {
-            alert('someone looking for you seat please choose another seat')
-          }
-
-        } else {
-          this.setState({
-            dataTarget: ''
-          })
-          db.ref(this.state.firebaseAddress+`/${seatId}`).set({
-            selected: false,
-            userid: '',
-            status: true
-          })
-        }
-
-      }
+        this.setState({
+          seatSelected: seatId
+        })
+        this.setState({
+          dataTarget: ''
+        })
+        db.ref(this.state.firebaseAddress+`/${seatId}`).set({
+          selected: false,
+          userid: '',
+          status: true
+        })
     }
 
   }
 
   checkSeat (seat,idx) {
-    if(seat.status){
-      if (!this.state.seats[idx].counter && this.state.seats[idx].userid !== localStorage.getItem('username')) {
-        return 'btn btn-default'
-      } else {
-        return 'btn btn-success'
-      }
-    } else {
-      return 'btn btn-danger disabled'
-    }
+
+
   }
 
   uangFormatter(uang){
@@ -228,27 +195,20 @@ class Seat extends Component {
       statusUpdates[`${this.state.firebaseAddress}/${seat}`]= false
       db.ref().update(statusUpdates)
     })
-    
+
   }
 }
-
-const boxStyle ={
-  border: 'solid'
-}
 const boxStyleSeat ={
-
-  width: '400px',
-  height: '400px',
-  marginTop: '30px',
-  marginLeft: '35%',
-  display : 'flex',
-  flexWrap: 'wrap'
+  width: '24%',
+  height: '200px',
+  marginLeft: '416px'
 }
 const seatStyle = {
   width: '50px',
   height: '50px',
   marginRight: '10px',
   marginLeft: '10px',
+  marginTop: '39px',
 
 }
 const button = {

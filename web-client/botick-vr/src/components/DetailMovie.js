@@ -47,7 +47,7 @@ class DetailMovie extends Component {
             times.map((time,idx) => {
               return (
                 <Link key={idx} to= {{
-                    pathname: `/booking/${ this.titleToDash(this.state.movie.title)}/${time._id}`,
+                    pathname: `/booking/${ this.titleToDash(this.state.movie.title)}/${this.state.movie._id}`,
                     state: {
                       showtimeData : [time, std, this.state.movie.title, this.state.movie._id]
                     }

@@ -37,7 +37,7 @@ class Carousel extends Component {
             <span className="sr-only">Next</span>
           </a>
         </div>
-        <div className= "coming" ><h2>Coming Soon</h2></div>
+        {/* <div className= "coming" ><h2>Coming Soon</h2></div> */}
       </div>
     )
   }
