@@ -62,7 +62,7 @@ class DetailMovie extends Component {
 
   render () {
     return (
-      <div className='container'>
+      <div className='container detailPage'>
         <div className='row' style={{'margin': '30px'}}>
           <h1 style={{textAlign: 'center'}}>{this.state.movie.title}</h1>
           <hr className='col-md-12' style={{ marginBottom: '30px' }} />

@@ -5,6 +5,7 @@ import './Seat.css'
 import Listpage from './Listpage'
 import { connect } from 'react-redux'
 import { getSeatFirebase, sendEmail, getMovieShowTime } from '../actions/index'
+import {Link} from 'react-router-dom'
 // import uang from 'uang'
 
 var db = firebase.database();
@@ -14,7 +15,7 @@ class Seat extends Component {
     super (props)
     this.state = {
       status : true,
-      seats: [{counter:0}],
+      seats: [],
       totalSeat: props.location.state.showtimeData[0].seatsTotal,
       booked: props.location.state.showtimeData[0].seatBooked,
       onBook: [],
@@ -76,7 +77,7 @@ class Seat extends Component {
                     <button className = 'btn btn-primary' data-dismiss="modal" onClick={() => this.clickModal(this.state.seatSelected)}>Select This Seat </button>
                   </div>
                   <div>
-                    <a href= {`http://vr.ahmadaidil.cf/?${this.props.match.params.id}/${this.state.studio}/${this.props.location.state.showtimeData[0].startTime.split('.').join(':')}/${this.state.seatSelected}`} target="_blank"className = 'btn btn-success modalButton'> View in vr </a>
+                    <button onClick={ () => this.redirectVR()} target="_blank"className = 'btn btn-success modalButton' data-dismiss='modal'> View in vr </button>
                   </div>
 
                 </div>
@@ -91,18 +92,31 @@ class Seat extends Component {
         <div className= 'container'>
           <div className='text-center'>
             <div >
-              <img alt='screen' src= {require('../assets/screen.png') }/>
+              <img className= 'hidden-xs hidden-sm' alt='screen' src= {require('../assets/screen.png') }/>
+              <img className= 'hidden-md hidden-lg screen' alt='screen' src= {require('../assets/screen.png') }/>
             </div>
 
-          <div className= 'col-md-offset-4' style = {boxStyleSeat}>
-              {
-                this.state.seats.map((seat,idx) => {
-                  return (
-                    <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={  seat.status ?  seat.selected ? 'btn btn-success' : 'btn btn-default' : 'btn btn-danger disabled'}  key= {idx}
-                    disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={seat.selected ? '' :'#seatModal'}> {idx+1}</button>
-                  )
-                })
-              }
+            <div className='text-center roomBox'>
+                <div className= 'hidden-xs hidden-sm boxStyleSeat'>
+                  {
+                    this.state.seats.map((seat,idx) => {
+                      return (
+                        <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={  seat.status ?  seat.selected ? 'btn btn-success' : 'btn btn-default' : 'btn btn-danger disabled'}  key= {idx}
+                        disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={seat.selected ? '' :'#seatModal'}> {idx+1}</button>
+                      )
+                    })
+                  }
+                </div>
+                <div className= 'hidden-md hidden-lg  boxstyleXS'>
+                  {
+                    this.state.seats.map((seat,idx) => {
+                      return (
+                        <button onClick = {() => this.buttonSeat(idx+1, seat.selected, seat.userid)} style= {seatStyle} className={  seat.status ?  seat.selected ? 'btn btn-success' : 'btn btn-default' : 'btn btn-danger disabled'}  key= {idx}
+                        disabled = {this.checkSeatDisable(seat.status, idx+1)} data-toggle="modal" data-target={seat.selected ? '' :'#seatModal'}> {idx+1}</button>
+                      )
+                    })
+                  }
+                </div>
             </div>
           </div>
         </div>
@@ -123,13 +137,20 @@ class Seat extends Component {
                 <span className= 'col-md-4'> : {this.uangFormatter(this.state.onBook.length * this.state.price)},00</span>
               </h3>
               <hr className= 'col-md-12'/>
-              <button className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2' onClick= {()=> this.booking()}>Book Now</button>
+
+            <Link to= {{
+                pathname: '/success'
+              }} className= 'btn btn-danger btn-lg col-md-offset-10 col-md-2' onClick= {()=> this.booking()}>Book Now</Link>
             </div>
             : ''
           }
 
       </div>
     )
+  }
+  redirectVR () {
+    var linkVr = `vr.botick.ga/?${this.state.studio}-${this.state.seatSelected}/${this.props.match.params.id}/${this.props.location.state.showtimeData[0].startTime.split('.').join(':')}/`
+    window.open(linkVr, '_self', null, false)
   }
   clickModal (seatId) {
     db.ref(this.state.firebaseAddress+`/${seatId}`).set({
@@ -172,11 +193,6 @@ class Seat extends Component {
 
   }
 
-  checkSeat (seat,idx) {
-
-
-  }
-
   uangFormatter(uang){
     return uang.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
@@ -184,10 +200,14 @@ class Seat extends Component {
   booking () {
     const dataEmail = {
       studio: this.props.location.state.showtimeData[1].name,
+      title: this.props.location.state.showtimeData[2],
       email: localStorage.getItem('email'),
       username: localStorage.getItem('username'),
-      seatBook: this.state.onBook
+      seatBook: this.state.onBook,
+      time: this.state.time,
+      total: this.uangFormatter(this.state.onBook.length * this.state.price)
     }
+    debugger
     this.props.sendEmail(dataEmail)
     var statusUpdates = {}
 
@@ -198,11 +218,7 @@ class Seat extends Component {
 
   }
 }
-const boxStyleSeat ={
-  width: '24%',
-  height: '200px',
-  marginLeft: '416px'
-}
+
 const seatStyle = {
   width: '50px',
   height: '50px',

@@ -8,6 +8,7 @@ const Footer = () => {
           <h4>Our Place</h4>
           <p>Jl. Sultan Iskandar Muda No.7, RT.5/RW.9, Kby. Lama Sel., Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12240, Indonesia</p>
         </div>
+        <div className= 'col-md-4'/>
         <div className= 'col-md-4 text-center list-logo'>
           <ul className="list-inline">
                 <li>

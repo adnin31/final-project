@@ -36,10 +36,14 @@
 .navbar-default .navbar-toggle {
   border-color: transparent;
 }
+
 .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
     background-color: transparent;
 }
-
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+    font-weight: 5px
+}
 .logo-navbar {
   width: auto;
   height: 41px;

@@ -8,6 +8,7 @@ import DetailMovie from './components/DetailMovie'
 import Seat from './components/Seat'
 import Footer from './components/Footer'
 import SeatNew from './components/SeatNew'
+import TransactionSuccess from './components/TranssactionsSuccess'
 
 class App extends Component {
   render() {
@@ -19,7 +20,8 @@ class App extends Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/detail/:id' component={DetailMovie} />
           <Route exact path='/booking/:movie/:id' component={Seat} />
-        <Route exact path='/book/:studioName/:movieId/:time' component={SeatNew}/>
+          <Route exact path='/book/:studioName/:movieId/:time' component={SeatNew}/>
+        <Route exact path='/success' component={TransactionSuccess}/>
           <Footer/>
         </div>
       </Router>
