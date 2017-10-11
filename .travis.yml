@@ -3,5 +3,3 @@ node_js:
    - "node"
    - "8"
 before_script: cd server/test
-script: 
-  - "npm test"
