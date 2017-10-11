@@ -28,6 +28,7 @@ let addMovieShowTime = (req, res) => {
   model.create({
     _movieId: req.body.movieId,
     _studioId: req.body.studioId,
+    showDate: req.body.showDate,
     startTime: req.body.startTime,
     seatsTotal: req.body.seatsTotal,
     seatAvailable: req.body.seatAvailable,
@@ -47,6 +48,7 @@ let editMovieShowTime = (req, res) => {
   }, {
     _movieId: req.body.movieId,
     _studioId: req.body.studioId,
+    showDate: req.body.showDate,
     startTime: req.body.startTime,
     seatsTotal: req.body.seatsTotal,
     seatAvailable: req.body.seatAvailable,

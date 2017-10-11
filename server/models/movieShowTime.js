@@ -10,6 +10,10 @@ let movieShowTimeSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Studio'
   },
+  showDate: {
+    type: Date,
+    required: true
+  },
   startTime: {
     type: String,
     required: true

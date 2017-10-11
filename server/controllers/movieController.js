@@ -57,7 +57,6 @@ let addMovie = (req, res) => {
     for(let a = 0 ; a < response._studioId.length ; a++) {
       studio.findById(response._studioId[a], (err, res2) => {
         console.log('>>>>>>>>>>>>>>>',response._studioId)
-        for (let i = 0 ; i < response._studioId.length; i++) {
           console.log('ini studio', res2)
           for (let k = 0 ; k < response._movieShowTimeId.length ; k++) {
             movieShowTime.findById(response._movieShowTimeId[k], (err, res3) => {
@@ -72,7 +71,6 @@ let addMovie = (req, res) => {
                 }
             })
           }
-        }
       })
     }
     res.send(response)
