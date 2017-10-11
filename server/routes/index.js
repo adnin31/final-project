@@ -3,7 +3,7 @@ const router = express.Router()
 const cron = require('node-cron')
 
 
-var task = cron.schedule('* * * * * *', () => {
+var task = cron.schedule('* */2 * * * *', () => {
   console.log('test cron')
 }, false )
 

@@ -21,7 +21,7 @@ const sendMail = (req, res) => {
   var mailOptions = {
     to: header.email,
     subject: `Botick confirmation user: ${header.username}`,
-    html: `Hello ${header.username},<br> Please Click on the link to confirm your booking tickets.<br><a href=${link}>Click here to verify</a>`
+    html: `Hello ${header.username},<br> Please Click on the link to confirm your booking tickets.<br><button href=${link}>Click here to verify</a>`
   }
 
     transporter.sendMail(mailOptions, (err, response) => {
