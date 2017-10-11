@@ -34,7 +34,7 @@
                 {
                     "type": "trailer",
                     "rotationX": 0,
-                    "rotationY": -10,
+                    "rotationY": 0,
                     "width": 2.500,
                     "height": 1.240,
                     "source": "Three-Cocktails.webm",

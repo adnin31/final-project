@@ -1,5 +1,5 @@
 import React from 'react'
-import {Animated, Image, VrButton} from 'react-vr'
+import {Animated, Image, VrButton, View} from 'react-vr'
 
 import Tooltip from './tooltip'
 
@@ -16,19 +16,24 @@ export default class Button extends React.Component {
     Animated.timing(this.state.opacityAnim, {
       toValue: 1,
       duration: 500,
-    }).start();
+    }).start()
   }
 
   fadeOut() {
     Animated.timing(this.state.opacityAnim, {
       toValue: 0,
       duration: 500,
-    }).start();
+    }).start()
   }
 
   render() {
     const PPM = this.props.pixelsPerMeter
     const tooltip = this.props.tooltip
+    const translate = {
+      X: this.props.translateX,
+      Y: this.props.translateY
+    }
+
     return (
       <VrButton
         style={{
@@ -36,8 +41,8 @@ export default class Button extends React.Component {
           position: 'absolute',
           transform: [
             {rotateY: 0},
-            {translateX: this.props.translateX},
-            {translateY: this.props.translateY},
+            {translateX: translate.X},
+            {translateY: translate.Y},
             {translateZ: 0}
           ]
         }}
@@ -59,15 +64,16 @@ export default class Button extends React.Component {
               flexDirection: 'row',
               alignItems: 'center',
               opacity: this.state.opacityAnim,
-              paddingLeft: 0.35 * PPM
+              marginTop: tooltip.type == 'trailer' ? 0.55 * PPM : 0,
+              marginLeft: tooltip.type == 'trailer' ? 0.25 * PPM : 0,
+              paddingLeft: tooltip.type == 'trailer' ? 0 : 0.35 * PPM
             }}
             billboarding={'on'}
           >
-            <Tooltip pixelsPerMeter={PPM} tooltip={this.props.tooltip} />
+            <Tooltip pixelsPerMeter={PPM} tooltip={tooltip} translate={translate} />
           </Animated.View>
         </Image>
       </VrButton>
     )
   }
-
 }
