@@ -14,7 +14,7 @@ const user1 = {
 }
 
 describe('User', () => {
-    beforeEach((done) => {
+    before((done) => {
       Model.remove({}, (err) => {
         done()
       })
