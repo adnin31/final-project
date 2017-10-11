@@ -1,0 +1,13 @@
+.coming {
+  font-family: 'Raleway', sans-serif;
+  /*font-family: 'Josefin Sans', sans-serif;*/
+  position: absolute;
+  top: 10px;
+  left: 25px;
+  text-shadow: 0 0 3px #FF0000;
+  padding: 5px 10px;
+  color: #fff;
+}
+.container {
+  position: relative;
+}

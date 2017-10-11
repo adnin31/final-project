@@ -1,8 +1,9 @@
-import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { getAllMovie, getAllStudio } from '../actions/index'
+import './NowPlaying.css'
 
 class NowPlaying extends Component{
   constructor(props) {
@@ -18,7 +19,6 @@ class NowPlaying extends Component{
   }
 
   render () {
-    console.log('ini di render', this.props.movieList)
     return (
       <div className= "container">
         <div className="row">
@@ -33,12 +33,7 @@ class NowPlaying extends Component{
               }} key={idx}>
               <div className="col-sm-6 col-md-4 " style = {studio}>
                 <div className="thumbnail" >
-                  <div className="caption text-center">
-                    <h3>{movie.title}</h3>
-                  </div>
-                  <img style={{height: '550px', width: 'auto'}}src={movie.poster} />
-                  <div className="caption text-center">
-                  </div>
+                  <img style={{height: '550px', width: 'auto'}} alt= 'Movie poster' src={movie.poster} />
                 </div>
               </div>
             </Link>
@@ -47,16 +42,6 @@ class NowPlaying extends Component{
         </div>
       </div>
     )
-  }
-
-  // componentWillReceiveProps () {
-  //   this.setState({
-  //     movie: this.props.movieList
-  //   })
-  // }
-
-  clickMovie () {
-    console.log('click ini');
   }
 }
 

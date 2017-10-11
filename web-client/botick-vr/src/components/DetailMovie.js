@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import Listpage from './Listpage'
 import './DetailMovie.css'
+
+
 class DetailMovie extends Component {
   constructor (props) {
     super(props)
@@ -13,42 +15,64 @@ class DetailMovie extends Component {
   }
 
   getStudio (studioId, startTime) {
+
     return this.state.studio.map(std => {
       if (studioId === std._id) {
         return (
           <div>
             <h3>Studio {std.name}</h3>
-            <button><h2>{startTime}</h2></button>  
+            <button><h2>{startTime}</h2></button>
           </div>
         )
       }
     })
   }
 
+  titleToDash(title) {
+    var patt = /\s/g;
+    var result = title.replace(patt,'-')
+    return result
+  }
+
   renderMovieShowTime () {
-    return this.state.movie._movieShowTimeId.map(showtime => {
+
+    return this.state.studio.map((std,idx) => {
+      var times = this.state.movie._movieShowTimeId.filter( showtime => {
+        return std._id === showtime._studioId
+      })
       return (
-        <div>
-          <td>{this.getStudio(showtime._studioId, showtime.startTime)}
-          </td>
+        <div key={idx}>
+          <h3>Studio {std.name}</h3>
+          {
+            times.map((time,idx) => {
+              return (
+                <Link key={idx} to= {{
+                    pathname: `/booking/${ this.titleToDash(this.state.movie.title)}/${time._id}`,
+                    state: {
+                      showtimeData : [time, std, this.state.movie.title, this.state.movie._id]
+                    }
+                  }} className= 'btn btn-primary' style = {{marginRight : '20px'}}><h2>{time.startTime}</h2></Link>
+              )
+            })
+          }
         </div>
       )
     })
   }
 
   render () {
-    console.log('---------------', this.state.movie)
     return (
       <div className='container'>
-        <div className='row' style={{'margin': '20px'}}>
+        <div className='row' style={{'margin': '30px'}}>
           <h1 style={{textAlign: 'center'}}>{this.state.movie.title}</h1>
           <hr className='col-md-12' style={{ marginBottom: '30px' }} />
-          <div className='col-md-4'>
-            <img style={{width: 'auto', height: '500px'}} src={this.state.movie.poster} />
-          </div>
-          <div className='col-md-6'>
-            <iframe width='720px' height='500px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
-
+          <div>
+            <div className='col-md-4'>
+              <img style={{width: 'auto', height: '500px'}} src={this.state.movie.poster} />
+            </div>
+            <div className='col-md-6'>
+              <iframe width='720px' height='500px' src={`http://www.youtube.com/embed/` + this.state.movie.trailer.split('/')[3]} />
+            </div>
           </div>
         </div>
         <Listpage text={this.state.title} />
@@ -87,14 +111,8 @@ class DetailMovie extends Component {
         <div className='row'>
           <div className='col-md-12'>
             <h2>Schedule</h2>
-
             <hr className='col-md-12' style={{'margin': '10px 0px 10px 0px'}}/>
-            <h4>Pick your time</h4>
-            <table className='table text-center'>
-              <tbody>
-                {this.renderMovieShowTime()}
-              </tbody>
-            </table>
+            {this.renderMovieShowTime()}
           </div>
         </div>
       </div>

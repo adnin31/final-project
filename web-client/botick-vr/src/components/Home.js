@@ -1,18 +1,14 @@
 import React, {Component} from 'react'
-import Navbar from './Navbar'
 import Carousel from './Carousel'
 import Listpage from './Listpage'
 import NowPlaying from './NowPlaying'
 
-class Home extends Component{
-  constructor() {
-    super()
-  }
 
+class Home extends Component{
   render () {
     return (
-      <div>
-        <div>
+      <div >
+        <div style={{marginTop:'75px'}}>
           <Carousel></Carousel>
           <Listpage text= 'Now Playing'></Listpage>
           <NowPlaying></NowPlaying>

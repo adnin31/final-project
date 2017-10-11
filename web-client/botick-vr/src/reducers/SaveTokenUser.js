@@ -1,5 +1,7 @@
 const defaultState = {
-    token: ''
+    token: '',
+    username: '',
+    email: ''
 }
 
 export default (state = defaultState, action) => {
@@ -7,7 +9,9 @@ export default (state = defaultState, action) => {
     case 'SAVE_USER_TOKEN':
     return {
         ...state,
-        token: action.payload.token
+        token: action.payload.dataUser.token,
+        email: action.payload.dataUser.email,
+        username: action.payload.dataUser.username
     }
     default:
     return state

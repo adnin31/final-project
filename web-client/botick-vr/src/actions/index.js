@@ -1,5 +1,9 @@
 import axios from 'axios'
+import firebase from '../components/firebase.js'
+import Home from '../components/Home.js'
+
 const api = 'https://botick-vr.appspot.com/api'
+const db = firebase.database()
 
 export const movieList = movie => ({
   type: 'GET_MOVIE_ALL',
@@ -15,10 +19,31 @@ export const studioList = studio => ({
   }
 })
 
-export const getToken = token => ({
+export const getToken = data => ({
   type: 'SAVE_USER_TOKEN',
   payload: {
-    token: token
+    dataUser: data
+  }
+})
+
+export const getSeats = counterUser => ({
+  type: 'SAVE_SEATS_FIRE',
+  payload: {
+    userFire: counterUser
+  }
+})
+
+export const statusEmail = status => ( {
+  type: 'SET_STATUS_EMAIL',
+    payload : {
+      status: status
+    }
+})
+
+export const showTime = movieShowTime => ({
+  type: 'GET_MOVIE_SHOWTIME',
+  payload : {
+    movieShowTime: movieShowTime
   }
 })
 
@@ -35,7 +60,6 @@ export const getAllMovie = () => dispatch => {
 export const getAllStudio = () => dispatch => {
   axios.get(api + `/studio/`)
   .then(({data}) => {
-    console.log('action axios get studio', data)
     dispatch(studioList(data))
   })
   .catch(err => {
@@ -49,11 +73,55 @@ export const postLogin = dataUser => dispatch =>{
   })
   .then( ({data}) => {
     localStorage.setItem('token',data.token)
-    dispatch(getToken(data.token))
+    localStorage.setItem('username',data.username)
+    localStorage.setItem('email',data.email)
+    dispatch(getToken(data))
   })
 }
 
 export const logOut = dataUser => dispatch =>{
   localStorage.removeItem('token')
-  dispatch(getToken(dataUser))
+  var newDataUser = {
+    token: dataUser,
+    username: dataUser,
+    email: dataUser
+  }
+  dispatch(getToken(newDataUser))
+}
+
+export const getSeatFirebase = studio => dispatch => {
+  db.ref(studio).on('value',snapshot => {
+    // console.log('ini get userfirebase', snapshot.val());
+    dispatch(getSeats(snapshot.val()))
+  })
+}
+
+export const register = newUser => dispatch=> {
+  axios.post(api + '/user/signup', {
+    ...newUser
+  })
+  .then(({data}) => {
+  })
+}
+
+export const sendEmail = dataEmail => dispatch => {
+  axios.post( `https://botick-vr.appspot.com/sendmail`,{}, {
+    headers : dataEmail
+  })
+  .then(({data}) => {
+    dispatch(statusEmail(true))
+  })
+  .catch( err => {
+    alert('hayoooo salah')
+  })
+}
+
+export const getMovieShowTime = idShowTime => dispatch => {
+  axios.get(api + '/movieshowtime/' + idShowTime)
+  .then(({data}) => {
+    dispatch(showTime(data))
+  })
+  .catch(err => {
+    console.log('cant get showtime');
+  })
 }

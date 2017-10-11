@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
-
+import './Carousel.css'
 class Carousel extends Component {
-  constructor() {
-    super()
-  }
-
   render() {
     return (
-      <div className="container">
-        <h2 style={{textAlign: 'center'}}>Coming Soon</h2>
-        <div id="myCarousel" className="carousel slide" data-ride="carousel">
+      <div className="container hidden-sm hidden-xs" >
+        <div id="myCarousel" className="carousel slide sm" data-ride="carousel">
           {/* <!-- Indicators --> */}
           <ol className="carousel-indicators">
             <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
@@ -42,6 +37,7 @@ class Carousel extends Component {
             <span className="sr-only">Next</span>
           </a>
         </div>
+        <div className= "coming" ><h2>Coming Soon</h2></div>
       </div>
     )
   }

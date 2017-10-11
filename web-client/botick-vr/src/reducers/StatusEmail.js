@@ -1,13 +1,13 @@
 const defaultState = {
-    studiolist: []
+    status: false
 }
 
 export default (state = defaultState, action) => {
   switch (action.type) {
-    case 'GET_STUDIO_ALL':
+    case 'SET_STATUS_EMAIL':
     return {
         ...state,
-        studiolist: action.payload.studiolist
+        status:  action.payload.status,
     }
     default:
     return state
