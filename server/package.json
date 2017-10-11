@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha",
+    "test": "./node_modules/.bin/mocha --compilers ts:typescript-require",
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
@@ -28,6 +28,7 @@
     "chai-http": "^3.0.0",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "typescript-require": "^0.2.9-1"
   }
 }
