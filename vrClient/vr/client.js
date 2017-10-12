@@ -12,7 +12,7 @@ function init(bundle, parent, options) {
     raycasters: [
       SimpleRaycaster // Add SimpleRaycaster to the options 
     ],
-    cursorVisibility: "auto", // Add cursorVisibility 
+    cursorVisibility: 'visible', // Add cursorVisibility 
     ...options,
   })
   vr.render = function() {

@@ -10,11 +10,12 @@ import CylindricalPanel from 'CylindricalPanel'
 import Button from './button'
 
 const Location = NativeModules.Location
+
 const MAX_TEXTURE_WIDTH = 4096
 const MAX_TEXTURE_HEIGHT = 720
 const PPM = 1 / (2 * Math.PI * 3) * MAX_TEXTURE_WIDTH
 const translateX = degrees => -(degrees / 360) * MAX_TEXTURE_WIDTH
-const translateY = degress => -(degress / 360) * MAX_TEXTURE_HEIGHT
+const translateY = degrees => -(degrees / 360) * MAX_TEXTURE_HEIGHT
 
 export default class vrClient extends React.Component {
   constructor() {
@@ -22,7 +23,10 @@ export default class vrClient extends React.Component {
     this.state = {
       data: null,
       seatId: null,
-      userToken: null
+      seatIndex: null,
+      studioName: null,
+      movieId: null,
+      time: null
     }
   }
 
@@ -46,7 +50,10 @@ export default class vrClient extends React.Component {
       this.setState({
         data: dataConfig,
         seatId: queryURL[0],
-        userToken: queryURL[1]
+        seatIndex: queryURL[0].split('-')[1],
+        studioName: queryURL[0].split('-')[0],
+        movieId: queryURL[1],
+        time: queryURL[2]
       })
     }
   }
@@ -90,6 +97,7 @@ export default class vrClient extends React.Component {
                         tooltip={tooltip}
                         translateX={translateX(tooltip.rotationX)}
                         translateY={translateY(tooltip.rotationY)}
+                        state={this.state}
                       />
                     )
                   })

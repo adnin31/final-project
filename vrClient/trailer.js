@@ -11,7 +11,7 @@ export default class Trailer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      playerState: new MediaPlayerState({autoPlay: true, muted: true}),
+      playerState: new MediaPlayerState({autoPlay: true}),
     }
   }
 
@@ -26,17 +26,14 @@ export default class Trailer extends React.Component {
           layoutOrigin: [0.5, 0.5, 0],
           position: 'absolute',
           transform: [
-            {rotateY: 0},
-            {translateX: translate.X},
-            {translateY: translate.Y},
-            {translateZ: 0}
+            {scale: tooltip.scale}
           ]
         }}
       >
         <Video
           style={{
             height: tooltip.height * PPM,
-            width: tooltip.width * PPM,
+            width: tooltip.width * PPM
           }}
           source={asset(tooltip.source)}
           playerState={this.state.playerState}

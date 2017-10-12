@@ -1,5 +1,24 @@
 import React from 'react'
-import {Animated, Image, VrButton, View} from 'react-vr'
+import {
+  Animated,
+  Image,
+  VrButton,
+  View,
+  NativeModules
+} from 'react-vr'
+import Easing from 'Easing'
+import firebase from 'firebase'
+
+var config = {
+    apiKey: "AIzaSyCAndawPNofKLlN9W3EjWGYtqYnH1CneSc",
+    authDomain: "movie-trailer-175012.firebaseapp.com",
+    databaseURL: "https://movie-trailer-175012.firebaseio.com",
+    projectId: "movie-trailer-175012",
+    storageBucket: "movie-trailer-175012.appspot.com",
+    messagingSenderId: "584104791052"
+  }
+
+firebase.initializeApp(config);
 
 import Tooltip from './tooltip'
 
@@ -8,7 +27,14 @@ export default class Button extends React.Component {
     super()
     this.state = {
       hasFocus: false,
-      opacityAnim: new Animated.Value(0)
+      opacityAnim: new Animated.Value(0),
+      timeOut: 0
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.state.timeOut) {
+      clearTimeout(this.state.timeOut)
     }
   }
 
@@ -24,6 +50,25 @@ export default class Button extends React.Component {
       toValue: 0,
       duration: 500,
     }).start()
+  }
+
+  btnPress(tooltipType) {
+    this.setState({hasFocus: false})
+    tooltipType == 'buttonBook' ?
+    this.setBook() : NativeModules.History.back()
+  }
+
+  setBook() {
+    const data = this.props.state
+    firebase.database()
+    .ref(`${data.movieId}/${data.studioName}/${data.time}/${data.seatIndex}`)
+    .set({
+      selected: true,
+      status: true
+    }, function (err) {
+      if (err) console.log(err)
+      else NativeModules.History.back()
+    })
   }
 
   render() {
@@ -48,8 +93,22 @@ export default class Button extends React.Component {
         }}
         ignoreLongClick={true}
         onInput={null}
-        onExit={() => this.fadeOut()}
-      >
+        onEnter={() => {
+          if(tooltip.type == 'buttonBook' || tooltip.type == 'buttonClose') {
+            const timeout = setTimeout(() => {
+              this.btnPress(tooltip.type)
+            }, 3000)
+            this.state.timeOut = timeout
+          }
+        }}
+        onExit={() => {
+          if(tooltip.type == 'buttonBook' || 'buttonClose') {
+            this.fadeOut()
+            clearTimeout(this.state.timeOut)
+            this.state.timeOut = 0
+          }
+        }}
+        >
         <Image
           style={{
             height: 0.3 * PPM,
