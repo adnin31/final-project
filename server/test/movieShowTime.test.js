@@ -10,7 +10,7 @@ let Movie = require('../models/movie')
 let Studio = require('../models/studio')
   
 describe('movieShowTime', () => {
-    beforeEach((done) => {
+    before((done) => {
       MovieShowTime.remove({}, (err) => {
         done()
       })

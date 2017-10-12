@@ -8,7 +8,7 @@ let data = {}
 let Movie = require('../models/movie')
 
 describe('Movie', () => {
-    beforeEach((done) => {
+    before((done) => {
       Movie.remove({}, (err) => {
         done()
       })
