@@ -8,7 +8,7 @@ const Studio = require('../models/studio')
 const Movie = require('../models/movie')
 
 describe('Studio', () => {
-    beforeEach((done) => {
+    before((done) => {
       Studio.remove({}, (err) => {
         done()
       })
