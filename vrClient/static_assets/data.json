@@ -1,0 +1,760 @@
+{
+    "pano": {
+        "studio1-1": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 1",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio1-2": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 2",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio1-3": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 3",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio1-4": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 4",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio1-5": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 5",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio1-6": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 1, seat 6",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio1.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio1.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio2-1": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 1",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio2-2": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 2",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio2-3": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 3",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio2-4": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 4",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio2-5": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 5",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio2-6": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 2, seat 6",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio2.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio2.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio3-1": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 1",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio3-2": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 2",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio3-3": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 3",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio3-4": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat1.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 4",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 0.7
+                }
+            ]
+        },
+        "studio3-5": {
+            "rotationOffset": 0,
+            "uri": "studio1-seat2.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 5",
+                    "rotationX": 35,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 35,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 35,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 0,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 1
+                }
+            ]
+        },
+        "studio3-6": {
+            "rotationOffset": -21,
+            "uri": "studio1-seat3.jpg",
+            "tooltips": [
+                {
+                    "type": "textImage",
+                    "text": "Your position is studio 3, seat 6",
+                    "rotationX": 56,
+                    "rotationY": -45,
+                    "width": 1,
+                    "height": 1,
+                    "source": "poster-mv-studio3.jpg"
+                },
+                {
+                    "type": "buttonBook",
+                    "title": "Add to your book list",
+                    "text": "Looking this button 3 seconds to add this seat to your book list",
+                    "rotationX": 56,
+                    "rotationY": -10,
+                    "width": 1.280,
+                    "height": 1.280
+                },
+                {
+                    "type": "buttonClose",
+                    "title": "Close preview",
+                    "text": "Looking this button 3 seconds  to close this seat preview",
+                    "rotationX": 56,
+                    "rotationY": 25,
+                    "width": 1,
+                    "height": 1
+                },
+                {
+                    "type": "trailer",
+                    "rotationX": 21,
+                    "rotationY": 0,
+                    "width": 2.500,
+                    "height": 1.240,
+                    "source": "studio3.webm",
+                    "scale": 0.7
+                }
+            ]
+        }
+    }
+}
